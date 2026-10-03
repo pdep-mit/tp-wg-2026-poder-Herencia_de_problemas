@@ -28,7 +28,8 @@ TODO
 
 ## Controles
 
-TODO
+Flechas: Mover Personaje
+Q: Poner una Bomba
 
 # Explicaciones
 

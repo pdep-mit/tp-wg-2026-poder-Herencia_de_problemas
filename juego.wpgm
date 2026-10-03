@@ -1,3 +1,4 @@
+import objetos.*
 import wollok.game.*
 import jugador.*
 
@@ -7,6 +8,13 @@ program NombreDeJuego {
 	game.width(10)
 	game.boardGround("Fondo.jpg")
 	game.addVisual(jugador)
+
+	keyboard.up().onPressDo({ jugador.subir() })
+	keyboard.down().onPressDo({ jugador.bajar() })
+	keyboard.left().onPressDo({ jugador.irALaIzquierda() })
+	keyboard.right().onPressDo({ jugador.irALaDerecha() })
+
+	keyboard.q().onPressDo({ game.addVisual(new Bomba(position = jugador.position())) })
 
 	game.start()
 }

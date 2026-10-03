@@ -1,10 +1,22 @@
 object jugador {
-  var property posicion = game.center()
+  var property position = game.center()
   method image() = "player.png"
 
-  method mover() {
-    // Verificar si hay algun elemento que me impida pasar
-    //  Si no lo hay debe moverse
-    // En caso de que haya un objeto no se debe mover
+
+  method subir() {
+    if (position.y() < game.height() - 1) {position = position.up(1)}
   }
+
+  method bajar() {
+    if (position.y() > 0) {position = position.down(1)}
+  }
+
+  method irALaDerecha() {
+    if (position.x() < game.width() -1) {position = position.right(1)}
+  }
+  
+  method irALaIzquierda() {
+    if (position.x() > 0) {position = position.left(1)}
+  }
+ 
 }
