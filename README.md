@@ -3,11 +3,11 @@
 **Grupo:** Nombre de Grupo
 
 **Integrantes:**
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
-- Nombre y Apellido
+- Benjamín Caiazzo
+- Thiago Calascibetta
+- Santiago Tolosa
+- Matias Fasce
+- Israel Poveda
 
 ## Consignas
 
