@@ -1,13 +1,12 @@
 import wollok.game.*
-import example.*
+import jugador.*
 
 program NombreDeJuego {
-	// TODO: Cambiar esto por lo que necesiten
-	game.title("Grupo: ... | Nombre de jueguito")
+	game.title("Grupo: Herencia de Problemas | Bomberman")
 	game.height(10)
 	game.width(10)
-
-	game.addVisual(player)
+	game.boardGround("Fondo.jpg")
+	game.addVisual(jugador)
 
 	game.start()
 }
