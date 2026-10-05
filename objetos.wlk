@@ -3,21 +3,29 @@ class MuroDestruible {
 
   method image() = "MuroDestruible.png"
 
-  // Falta implementar 
+  method permitePasar() {
+    return false
+    
+  }
 }
 
 class MuroIndestruible {
   const property position 
 
   method image() = "MuroIndestruible.png"
-
-  // Falta implementar 
+method permitePasar() {
+    return false
+    
+  }
+  
 }
 
 class Bomba {
   const property position 
 
   method image() = "Bomba.png"
-
-  // Falta implementar 
+method permitePasar() {
+    return false
+    
+  }
 }
