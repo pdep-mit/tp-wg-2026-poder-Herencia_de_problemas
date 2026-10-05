@@ -1,10 +1,40 @@
 // Archivo de tests de referencia, borrar luego de desarrollar propios
-import example.*
+import jugador.*
+import objetos.*
 
-describe "groupo de tests" {
 
-  test "Payer comeinza en el centro del tabler" {
-    assert.equals(game.center(), player.position())
+describe "test de movimiento y colisiones de jugador" {
+
+  method initialize(){
+    game.clear()
+    jugador.position(game.at(1,1))
   }
+
+  test "el jugador se mueve libremente a una casilla vacia " {
+    jugador.subir()
+    assert.equals(game.at(1,2), jugador.position())
+  }
+  test "el jugador no puede avanzar si hay un muro destruible" {
+    const muro = new MuroDestruible(position = game.at(1, 2))
+    game.addVisual(muro)
+    jugador.subir()
+
+    assert.equals(game.at(1,1), jugador.position())
+    
+  }
+  test "el jugador no puede avanzar si hay una bomba" {
+    const bomba = new Bomba(position = game.at(2,1))
+    game.addVisual(bomba)
+
+    assert.equals(game.at(1,1), jugador.position())
+    
+  }
+  test "el jugador no puede salir de los limites del mapa hacia la izquierda" {
+    jugador.position(game.at(0,1))
+    jugador.irALaIzquierda()
+    assert.equals(game.at(0,1), jugador.position()) // valor esperado comparado con el valor actual
+    
+  }
+
 
 }
