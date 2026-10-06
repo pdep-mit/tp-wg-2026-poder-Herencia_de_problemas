@@ -1,3 +1,4 @@
+import objetos.*
 object jugador {
   var property position = game.center()
   method image() = "player.png"
@@ -28,6 +29,18 @@ object jugador {
   }
  method puedeIrA(nuevaPosicion) { // consulta si el jugador puede pasar a esa celda
    return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} // retorna un booleano si el objeto puede pasar o no
-
  }
+
+ method recibirExplosion() {
+   const bomba = new Bomba(position = position)
+   game.addVisual(bomba)
+   bomba.activar()
+ }
+
+  method plantarBomba() {
+  const bomba = new Bomba(position = position)
+  game.addVisual(bomba)
+  bomba.activar()
+}
+
 }

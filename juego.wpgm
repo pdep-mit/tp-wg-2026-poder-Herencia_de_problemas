@@ -14,7 +14,9 @@ program NombreDeJuego {
 	keyboard.left().onPressDo({ jugador.irALaIzquierda() })
 	keyboard.right().onPressDo({ jugador.irALaDerecha() })
 
-	keyboard.q().onPressDo({ game.addVisual(new Bomba(position = jugador.position())) })
+	keyboard.q().onPressDo({ jugador.plantarBomba() })
+	//keyboard.q().onPressDo({ game.addVisual(new Bomba(position = jugador.position())) })
 	game.addVisual(new MuroDestruible(position = game.center().right(1)))
+	game.addVisual(new MuroIndestruible(position = game.at(2, 2)))
 	game.start()
 }
