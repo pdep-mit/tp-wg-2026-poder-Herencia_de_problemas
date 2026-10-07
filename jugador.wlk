@@ -1,6 +1,7 @@
 import objetos.*
 object jugador {
   var property position = game.center()
+  var property estaVivo = true
   method image() = "player.png"
 
 
@@ -32,7 +33,7 @@ object jugador {
  }
 
  method recibirExplosion() {
-   // falta implementar
+   estaVivo = false
  }
 
   method plantarBomba() {

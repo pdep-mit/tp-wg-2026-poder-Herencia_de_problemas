@@ -1,4 +1,3 @@
-// Archivo de tests de referencia, borrar luego de desarrollar propios
 import jugador.*
 import objetos.*
 
@@ -8,6 +7,8 @@ describe "test de movimiento y colisiones de jugador" {
   method initialize(){
     game.clear()
     jugador.position(game.at(1,1))
+    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    game.addVisual(jugador)
   }
 
   test "el jugador se mueve libremente a una casilla vacia " {
@@ -35,6 +36,31 @@ describe "test de movimiento y colisiones de jugador" {
     assert.equals(game.at(0,1), jugador.position()) // valor esperado comparado con el valor actual
     
   }
+
+
+}
+
+describe "test de explosion" {
+  method initialize(){
+    game.clear()
+    jugador.position(game.at(1,1))
+    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    game.addVisual(jugador)
+  }
+  test "la explosión de una bomba afecta al jugador" {
+    const posicion = game.at(2,2)
+    const bomba = new Bomba(position = posicion)
+
+    jugador.position(posicion.right(1))
+    jugador.estaVivo(true)
+
+    game.addVisual(bomba)
+
+    bomba.explotar()
+
+    assert.notThat(jugador.estaVivo())
+}
+ 
 
 
 }
