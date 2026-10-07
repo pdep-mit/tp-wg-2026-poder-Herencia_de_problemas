@@ -60,7 +60,41 @@ describe "test de explosion" {
 
     assert.notThat(jugador.estaVivo())
 }
- 
-
+  test "la explosion destruye el muro destruible" {
+    const muroDestruible = new MuroDestruible(position = game.at(1, 2))
+    const bomba = new Bomba(position = game.at(1, 1))
+    
+    game.addVisual(muroDestruible)
+    game.addVisual(bomba)
+    
+    bomba.explotar() 
+    
+    assert.notThat(game.hasVisual(muroDestruible))
+  }
+  test "la explosion no afecta al muro indestruible" {
+    const muroIndestruible = new MuroIndestruible(position = game.at(2, 1))
+    const bomba = new Bomba(position = game.at(1, 1))
+    
+    game.addVisual(muroIndestruible)
+    game.addVisual(bomba)
+    
+    bomba.explotar() 
+    
+    assert.that(game.hasVisual(muroIndestruible))
+  }
+  test "la explosion destruye el muro destruible y no afecta al indestructible" {
+    const muroDestruible = new MuroDestruible(position = game.at(1, 2))
+    const muroIndestructible = new MuroIndestruible(position = game.at(2, 1))
+    const bomba = new Bomba(position = game.at(1, 1))
+    
+    game.addVisual(muroDestruible)
+    game.addVisual(muroIndestructible)
+    game.addVisual(bomba)
+    
+    bomba.explotar() 
+    
+    assert.notThat(game.hasVisual(muroDestruible))
+    assert.that(game.hasVisual(muroIndestructible))
+  }
 
 }
