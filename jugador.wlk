@@ -32,9 +32,7 @@ object jugador {
  }
 
  method recibirExplosion() {
-   const bomba = new Bomba(position = position)
-   game.addVisual(bomba)
-   bomba.activar()
+   // falta implementar
  }
 
   method plantarBomba() {

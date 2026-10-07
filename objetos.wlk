@@ -20,7 +20,9 @@ class Bomba {
   method permitePasar() {
     return false
   }
-  method recibirExplosion() { }   // por ahora no gace nada 
+  method recibirExplosion() {
+    self.explotar()
+  }
 
 
   method activar() {
@@ -43,7 +45,7 @@ class Bomba {
 
 class Explosion {
   const property position
-  method image() = "Explosion.png" //agregar
+  method image() = "Explosion.png" 
   method permitePasar() = true
   method recibirExplosion(){ }
   method desaparecerLuego (){
