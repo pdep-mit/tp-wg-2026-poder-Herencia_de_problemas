@@ -52,3 +52,8 @@ class Explosion {
     game.schedule(500, { game.removeVisual(self) } )
   } 
 }
+
+class Puerta {
+  const property position 
+  method image() = "Puerta.png"
+}

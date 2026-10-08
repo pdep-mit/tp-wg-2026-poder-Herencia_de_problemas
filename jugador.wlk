@@ -1,3 +1,4 @@
+import juego.juego
 import objetos.*
 object jugador {
   var property position = game.center()
@@ -34,6 +35,7 @@ object jugador {
 
  method recibirExplosion() {
    estaVivo = false
+   juego.perderJuego()
  }
 
   method plantarBomba() {
