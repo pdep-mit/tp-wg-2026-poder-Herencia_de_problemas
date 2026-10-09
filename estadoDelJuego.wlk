@@ -12,5 +12,5 @@ object juego{
 class MenuMuerte{
 	var property image = "HasMuerto.png" 
 	
-	method position() = game.at(1, 2.5)
+	method position() = game.at(1, 3)
 }

@@ -1,4 +1,4 @@
-import juego.juego
+import estadoDelJuego.*
 import objetos.*
 object jugador {
   var property position = game.center()
