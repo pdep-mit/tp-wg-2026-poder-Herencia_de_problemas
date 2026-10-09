@@ -24,15 +24,15 @@ class Bomba {
     self.explotar()
   }
 
-
   method activar() {
-    game.schedule(3000,{self.explotar()}) // 3 segundos para que explote
+    game.onTick(3000, self.identity(), {self.explotar()} ) // 3 segundos para que explote
   }
 
   method posicionesAfectadas() =
     [position, position.up(1), position.down(1), position.right(1), position.left(1)]
 
   method explotar() {
+  game.removeTickEvent(self.identity())
   game.removeVisual(self)
   self.posicionesAfectadas().forEach({ pos =>
     game.getObjectsIn(pos).forEach({ objeto => objeto.recibirExplosion() })
