@@ -56,4 +56,6 @@ class Explosion {
 class Puerta {
   const property position 
   method image() = "Puerta.png"
+  method permitePasar() = true
+  method recibirExplosion(){ }
 }

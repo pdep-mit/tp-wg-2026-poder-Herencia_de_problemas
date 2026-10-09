@@ -19,7 +19,10 @@ program Bomberman {
 
 	game.addVisual(new MuroDestruible(position = game.center().right(1)))
 	game.addVisual(new MuroIndestruible(position = game.at(2, 2)))
-	game.addVisual(new Puerta(position = game.at(8,8)))
+	const puerta = new Puerta(position = game.at(8,8))
+	game.addVisual(puerta)
+
+	game.onCollideDo(puerta, {jugador => jugador.entrarEnPuerta()})
 
 // Solo para testing, en la version final hay que borrarlo
 	keyboard.t().onPressDo( {(new SonidoPerder()).reproducir()} )

@@ -16,5 +16,9 @@ class Sonido {
 
 
 class SonidoPerder inherits Sonido
-  (sonido = game.sound("mario-kart-perder-1.mp3")){
+  (sonido = game.sound("perder.mp3")){
+}
+
+class SonidoGanar inherits Sonido
+  (sonido = game.sound("ganador.mp3")){
 }

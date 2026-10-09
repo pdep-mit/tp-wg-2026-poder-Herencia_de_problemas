@@ -7,10 +7,22 @@ object juego{
 						 (new SonidoPerder()).reproducir()
 						 }) 	
 	}
+
+	method ganarJuego() {
+	  game.schedule(5, {game.clear() 
+						 game.addVisual(new MenuDeVictoria())
+						 (new SonidoGanar()).reproducir()
+						 }) 
+	}
 }
 
 class MenuMuerte{
-	var property image = "HasMuerto.png" 
+	const property image = "HasMuerto.png" 
 	
+	method position() = game.at(1, 3)
+}
+
+class MenuDeVictoria{
+	const property image = "Ganaste.png"
 	method position() = game.at(1, 3)
 }

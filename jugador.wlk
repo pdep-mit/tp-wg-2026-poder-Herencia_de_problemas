@@ -5,7 +5,6 @@ object jugador {
   var property estaVivo = true
   method image() = "player.png"
 
-
   method subir() {
     if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){
       position = position.up(1) // si puede ir a es true, permito subir un casillero 
@@ -44,4 +43,7 @@ object jugador {
   bomba.activar()
 }
 
+method entrarEnPuerta(){
+    juego.ganarJuego()
+}
 }
