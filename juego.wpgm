@@ -8,7 +8,6 @@ program Bomberman {
 	game.height(10)
 	game.width(10)
 	game.boardGround("Fondo.jpg")
-	game.addVisual(jugador)
 
 	keyboard.up().onPressDo({ jugador.subir() })
 	keyboard.down().onPressDo({ jugador.bajar() })
@@ -17,12 +16,17 @@ program Bomberman {
 
 	keyboard.q().onPressDo({ jugador.plantarBomba() })
 
+	game.addVisual(jugador)
 	game.addVisual(new MuroDestruible(position = game.center().right(1)))
 	game.addVisual(new MuroIndestruible(position = game.at(2, 2)))
 	const puerta = new Puerta(position = game.at(8,8))
 	game.addVisual(puerta)
 
 	game.onCollideDo(puerta, {jugador => jugador.entrarEnPuerta()})
+
+	const cancionDeFondo = game.sound("Tema de Fondo - Zelda Song of Storms.mp3")
+	cancionDeFondo.shouldLoop(true)
+	game.schedule(500, {cancionDeFondo.play()} )
 
 // Solo para testing, en la version final hay que borrarlo
 	keyboard.t().onPressDo( {(new SonidoPerder()).reproducir()} )
