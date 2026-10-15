@@ -39,8 +39,7 @@ class Nivel{
 
         keyboard.q().onPressDo({ jugador.plantarBomba() })
 
-        keyboard.r().onPressDo({ juego.recargarNivel()}) // Esta en proceso
-        keyboard.g().onPressDo({ game.clear() })
+        keyboard.r().onPressDo({ juego.recargarNivel()})
     }
 
     method cargarMusica(){
@@ -51,12 +50,8 @@ class Nivel{
 
     method volverAEmpezar(){
         game.clear()
-        self.eliminarMusica()
-        self.cargarNivel()
-    }
-
-    method eliminarMusica(){
         cancionDeFondo.stop()
+        self.cargarNivel()
     }
 
     method agregarMurosIndestruibles(){
@@ -81,15 +76,18 @@ class Nivel{
             posiciones.forEach{ posicion => game.addVisual(new MuroIndestruible(position = posicion))}
             }
     } 
+    method crearPuertaEn(posicion){
+        const puerta = new Puerta(position = posicion)
+        game.addVisual(puerta)
+        game.onCollideDo(puerta, {objeto => objeto.entrarEnPuerta()})
+    }
 }
 
 object mapaPruebas inherits Nivel {
   override method cargarElementos(){
 	game.addVisual(new MuroDestruible(position = game.center().right(1)))
 	game.addVisual(new MuroIndestruible(position = game.at(3,3)))
-	const puerta = new Puerta(position = game.at(8,8))
-	game.addVisual(puerta)
-    game.onCollideDo(puerta, {objeto => objeto.entrarEnPuerta()})
+	self.crearPuertaEn(game.at(8,8))
   }
 }
 
@@ -97,9 +95,7 @@ object nivel1 inherits Nivel{
     override method cargarElementos(){        
         self.agregar(muroDestruible, [game.at(6,6)])
         self.agregarMurosIndestruibles() // Solo se agregan en posiciones con las dos componentes impares
-        const puerta = new Puerta(position = game.at(12,9))
-        game.addVisual(puerta)
-        game.onCollideDo(puerta, {objeto => objeto.entrarEnPuerta()})
+        self.crearPuertaEn(game.at(12,9))
     }
     
 }
