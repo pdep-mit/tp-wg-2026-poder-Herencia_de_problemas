@@ -22,3 +22,11 @@ class SonidoPerder inherits Sonido
 class SonidoGanar inherits Sonido
   (sonido = game.sound("ganador.mp3")){
 }
+
+class SonidoPlantarBomba inherits Sonido
+  (sonido = game.sound("Plantar Bomba.ogg")){
+}
+
+class SonidoExplotarBomba inherits Sonido
+  (sonido = game.sound("Explosion Bomba.ogg")){
+}

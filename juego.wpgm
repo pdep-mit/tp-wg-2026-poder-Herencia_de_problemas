@@ -25,6 +25,7 @@ program Bomberman {
 	game.onCollideDo(puerta, {jugador => jugador.entrarEnPuerta()})
 
 	const cancionDeFondo = game.sound("Tema de Fondo - Zelda Song of Storms.mp3")
+	cancionDeFondo.volume(0.3)
 	cancionDeFondo.shouldLoop(true)
 	game.schedule(500, {cancionDeFondo.play()} )
 

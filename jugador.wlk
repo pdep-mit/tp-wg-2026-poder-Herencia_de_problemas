@@ -1,5 +1,7 @@
 import estadoDelJuego.*
 import objetos.*
+import sonidos.*
+
 object jugador {
   var property position = game.center()
   var property estaVivo = true
@@ -40,6 +42,7 @@ object jugador {
   method plantarBomba() {
   const bomba = new Bomba(position = position)
   game.addVisual(bomba)
+  (new SonidoPlantarBomba()).reproducir()
   bomba.activar()
 }
 

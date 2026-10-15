@@ -1,3 +1,5 @@
+import sonidos.*
+
 class MuroDestruible {
   const property position 
   method image() = "MuroDestruible.png"
@@ -32,15 +34,20 @@ class Bomba {
     [position, position.up(1), position.down(1), position.right(1), position.left(1)]
 
   method explotar() {
-  game.removeTickEvent(self.identity())
-  game.removeVisual(self)
-  self.posicionesAfectadas().forEach({ pos =>
-    game.getObjectsIn(pos).forEach({ objeto => objeto.recibirExplosion() })
-    const explosion = new Explosion(position = pos)
-    game.addVisual(explosion)
-    explosion.desaparecerLuego()
-    })
+    game.removeTickEvent(self.identity())
+    game.removeVisual(self)
+    (new SonidoExplotarBomba()).reproducir()
+    self.generarOndaExpansiva()
   }  
+
+  method generarOndaExpansiva(){
+    self.posicionesAfectadas().forEach({ pos =>
+      game.getObjectsIn(pos).forEach({ objeto => objeto.recibirExplosion() })
+      const explosion = new Explosion(position = pos)
+      game.addVisual(explosion)
+      explosion.desaparecerLuego()
+    })
+  }
 }
 
 class Explosion {
