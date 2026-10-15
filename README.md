@@ -28,8 +28,9 @@ TODO
 
 ## Controles
 
-Flechas: Mover Personaje
-Q: Poner una Bomba
+- Flechas / WASD: Mover personaje
+- Q: Poner una bomba
+- R: Reiniciar el nivel
 
 # Explicaciones
 

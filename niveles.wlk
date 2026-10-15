@@ -36,6 +36,10 @@ class Nivel{
         keyboard.down().onPressDo({ jugador.bajar() })
         keyboard.left().onPressDo({ jugador.irALaIzquierda() })
         keyboard.right().onPressDo({ jugador.irALaDerecha() })
+        keyboard.w().onPressDo({ jugador.subir() })
+        keyboard.s().onPressDo({ jugador.bajar() })
+        keyboard.a().onPressDo({ jugador.irALaIzquierda() })
+        keyboard.d().onPressDo({ jugador.irALaDerecha() })
 
         keyboard.q().onPressDo({ jugador.plantarBomba() })
 
