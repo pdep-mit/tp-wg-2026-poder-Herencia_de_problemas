@@ -2,35 +2,16 @@ import objetos.*
 import wollok.game.*
 import jugador.*
 import sonidos.*
+import niveles.*
+import estadoDelJuego.*
 
 program Bomberman {
 	game.title("Grupo: Herencia de Problemas | Bomberman")
 	game.height(10)
-	game.width(10)
-	game.boardGround("Fondo.jpg")
+	game.width(15)
 
-	keyboard.up().onPressDo({ jugador.subir() })
-	keyboard.down().onPressDo({ jugador.bajar() })
-	keyboard.left().onPressDo({ jugador.irALaIzquierda() })
-	keyboard.right().onPressDo({ jugador.irALaDerecha() })
+	juego.nivelActual(nivel1) // Acá pueden cambiar el nivel que se juega, que puede ser el mapaPrueba o nivel1
+	juego.cargarNivel()
 
-	keyboard.q().onPressDo({ jugador.plantarBomba() })
-
-	game.addVisual(jugador)
-	game.addVisual(new MuroDestruible(position = game.center().right(1)))
-	game.addVisual(new MuroIndestruible(position = game.at(2, 2)))
-	const puerta = new Puerta(position = game.at(8,8))
-	game.addVisual(puerta)
-
-	game.onCollideDo(puerta, {jugador => jugador.entrarEnPuerta()})
-
-	const cancionDeFondo = game.sound("Tema de Fondo - Zelda Song of Storms.mp3")
-	cancionDeFondo.volume(0.3)
-	cancionDeFondo.shouldLoop(true)
-	game.schedule(500, {cancionDeFondo.play()} )
-
-// Solo para testing, en la version final hay que borrarlo
-	keyboard.t().onPressDo( {(new SonidoPerder()).reproducir()} )
-	
 	game.start()
 }

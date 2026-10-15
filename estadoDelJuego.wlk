@@ -1,6 +1,14 @@
 import sonidos.*
+import niveles.*
 
 object juego{
+	var property nivelActual = nivel1 
+
+	method cargarNivel() { nivelActual.cargarNivel() }
+
+	method recargarNivel() { nivelActual.volverAEmpezar() }
+
+
 	method perderJuego() {
 		game.schedule(5, {game.clear() 
 						 game.addVisual(new MenuMuerte())

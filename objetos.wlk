@@ -58,6 +58,7 @@ class Explosion {
   method desaparecerLuego (){
     game.schedule(500, { game.removeVisual(self) } )
   } 
+  method entrarEnPuerta(){}
 }
 
 class Puerta {
