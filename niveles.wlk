@@ -7,7 +7,7 @@ const muroDestruible = "Muro Destruible"
 
 class Nivel{ 
     const property cantidadFilasDeMuros = 4
-    const property cantidadColumnasDeMuros = 7 
+    const property cantidadColumnasDeMuros = 8 
     const property cancionDeFondo = game.sound("Tema de Fondo - Zelda Song of Storms.mp3")
 
     method cargarNivel(){
@@ -96,10 +96,17 @@ object mapaPruebas inherits Nivel {
 }
 
 object nivel1 inherits Nivel{
-    override method cargarElementos(){        
-        self.agregar(muroDestruible, [game.at(6,6)])
+    override method cargarElementos(){
+        const fila1 = self.calcularFila(game.at(0,7))
+        const fila2 = self.calcularFila(game.at(0,3))        
+        self.agregar(muroDestruible, fila1 + fila2 + [game.at(3,0),game.at(3,2),game.at(8,5),game.at(10,5)])
         self.agregarMurosIndestruibles() // Solo se agregan en posiciones con las dos componentes impares
         self.crearPuertaEn(game.at(12,9))
+    }
+    
+    override method agregarMurosIndestruibles(){
+        super()
+        self.agregar(muroIndestruible, [game.at(7,9),game.at(7,8),game.at(7,6),game.at(7,4)])
     }
     
 }

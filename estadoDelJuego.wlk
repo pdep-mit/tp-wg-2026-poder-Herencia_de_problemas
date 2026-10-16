@@ -26,11 +26,10 @@ object juego{
 
 class MenuMuerte{
 	const property image = "HasMuerto.png" 
-	
-	method position() = game.at(1, 3)
+	method position() = game.at(3.4, 2.75)
 }
 
 class MenuDeVictoria{
 	const property image = "Ganaste.png"
-	method position() = game.at(1, 3)
+	method position() = game.at(3.4, 2.75)
 }
