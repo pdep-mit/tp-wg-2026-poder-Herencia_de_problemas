@@ -2,7 +2,7 @@ import sonidos.*
 
 class MuroDestruible {
   const property position 
-  method image() = "MuroDestruible.png"
+  method image() = "imagenes/MuroDestruible.png"
   method permitePasar() = false
   method recibirExplosion() {
     game.removeVisual(self) //Se rompe
@@ -11,14 +11,14 @@ class MuroDestruible {
 
 class MuroIndestruible {
   const property position 
-  method image() = "MuroIndestruible.png"
+  method image() = "imagenes/MuroIndestruible.png"
   method permitePasar() =  false
   method recibirExplosion() {} // no le pase nada
 }
 
 class Bomba {
   const property position 
-  method image() = "Bomba.png"
+  method image() = "imagenes/Bomba.png"
   method permitePasar() {
     return false
   }
@@ -52,7 +52,7 @@ class Bomba {
 
 class Explosion {
   const property position
-  method image() = "Explosion.png" 
+  method image() = "imagenes/Explosion.png" 
   method permitePasar() = true
   method recibirExplosion(){ }
   method desaparecerLuego (){
@@ -63,7 +63,7 @@ class Explosion {
 
 class Puerta {
   const property position 
-  method image() = "Puerta.png"
+  method image() = "imagenes/Puerta.png"
   method permitePasar() = true
   method recibirExplosion(){ }
 }

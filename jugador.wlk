@@ -5,7 +5,7 @@ import sonidos.*
 object jugador {
   var property position = game.center()
   var property estaVivo = true
-  method image() = "Personaje.png"
+  method image() = "imagenes/Personaje.png"
 
   method subir() {
     if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){

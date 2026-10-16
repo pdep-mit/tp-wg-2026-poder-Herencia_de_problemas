@@ -8,7 +8,7 @@ const muroDestruible = "Muro Destruible"
 class Nivel{ 
     const property cantidadFilasDeMuros = 4
     const property cantidadColumnasDeMuros = 8 
-    const property cancionDeFondo = game.sound("Tema de Fondo - Zelda Song of Storms.mp3")
+    const property cancionDeFondo = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")
 
     method cargarNivel(){
         self.cargarMapa()
@@ -20,7 +20,7 @@ class Nivel{
     }
     
     method cargarMapa(){
-	    game.boardGround("Fondo.jpg")
+	    game.boardGround("imagenes/Fondo.jpg")
     }
 
     method cargarElementos()
