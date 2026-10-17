@@ -20,7 +20,7 @@ class Nivel{
         self.cargarControles()
         self.cargarMusica()
     }
-    
+
     method cargarMapa(){
 	    game.boardGround("imagenes/Fondo.jpg")
     }
@@ -29,9 +29,10 @@ class Nivel{
     method cargarEnemigos(){}
 
     method cargarJugadorEn(posicion){
-        jugador.position(posicion)
-        game.addVisual(jugador)
-    }
+    jugador.reiniciar()
+    jugador.position(posicion)
+    game.addVisual(jugador)
+}
 
     method cargarControles(){
         keyboard.up().onPressDo({ jugador.subir() })
@@ -99,15 +100,26 @@ object mapaPruebas inherits Nivel {
   }
 }
 
-object nivel1 inherits Nivel{
-    override method cargarElementos(){
-        const fila1 = self.calcularFila(game.at(0,7))
-        const fila2 = self.calcularFila(game.at(0,3))        
-        self.agregar(muroDestruible, fila1 + fila2 + [game.at(3,0),game.at(3,2),game.at(8,5),game.at(10,5)])
-        self.agregarMurosIndestruibles() // Solo se agregan en posiciones con las dos componentes impares
-        self.crearPuertaEn(game.at(12,9))
-    }
-    
+object nivel1 inherits Nivel {
+  const columnaEnemigo = 10
+
+  override method cargarElementos() {
+    const fila1 = self.calcularFila(game.at(0, 7))
+    const fila2 = self.calcularFila(game.at(0, 3))
+
+    const muros = (fila1 + fila2 + [game.at(3, 0), game.at(3, 2), game.at(8, 5)])
+      .filter({ pos => pos.x() != columnaEnemigo })
+
+    self.agregar(muroDestruible, muros)
+    self.agregarMurosIndestruibles()
+    self.crearPuertaEn(game.at(12, 9))
+  }
+
+  override method cargarEnemigos() {
+    const enemigo = new Enemigo(position = game.at(columnaEnemigo, 4))
+    game.addVisual(enemigo)
+    enemigo.activar()
+  }
     override method agregarMurosIndestruibles(){
         super()
         self.agregar(muroIndestruible, [game.at(7,9),game.at(7,8),game.at(7,6),game.at(7,4)])

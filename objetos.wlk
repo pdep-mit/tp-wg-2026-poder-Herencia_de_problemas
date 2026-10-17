@@ -68,3 +68,35 @@ class Puerta {
   method permitePasar() = true
   method recibirExplosion(){ }
 }
+
+class Enemigo {
+  var property position
+  var subiendo = true
+
+  method image() = "imagenes/Enemigo.png"
+  method permitePasar() = true
+
+  method nombreTick() = "enemigo" + self.identity()
+
+  method activar() {
+    game.onTick(600, self.nombreTick(), { self.moverse() })
+  }
+
+  method moverse() {
+    const destino = if (subiendo) position.up(1) else position.down(1)
+    if (self.puedeIrA(destino)) {
+      position = destino
+    } else {
+      subiendo = !subiendo        // choca con algo y da la vuelta
+    }
+  }
+
+  method puedeIrA(pos) =
+    pos.y().between(0, game.height() - 1) &&
+    game.getObjectsIn(pos).all({ objeto => objeto.permitePasar() })
+
+  method recibirExplosion() {
+    game.removeTickEvent(self.nombreTick())
+    game.removeVisual(self)
+  }
+}

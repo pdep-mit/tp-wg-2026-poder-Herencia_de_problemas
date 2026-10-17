@@ -7,6 +7,11 @@ object jugador {
   var property estaVivo = true
   method image() = "imagenes/Personaje.png"
 
+  const maxBombas = 3
+  const tiempoRecarga = 5000       // 5 segundos
+  var bombasLanzadas = 0
+  var recargando = false
+
   method subir() {
     if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){
       position = position.up(1) // si puede ir a es true, permito subir un casillero 
@@ -34,19 +39,44 @@ object jugador {
    return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} // retorna un booleano si el objeto puede pasar o no
  }
 
+  method permitePasar() = true
+
  method recibirExplosion() {
    estaVivo = false
    juego.perderJuego()
  }
 
-  method plantarBomba() {
-  const bomba = new Bomba(position = position)
-  game.addVisual(bomba)
-  (new SonidoPlantarBomba()).reproducir()
-  bomba.activar()
+method reiniciar() {
+  estaVivo = true
+  bombasLanzadas = 0
+  recargando = false
 }
 
 method entrarEnPuerta(){
     juego.ganarJuego()
+}
+
+method plantarBomba() {
+  if (recargando) {
+    game.say(self, "Recargando...")
+  } else {
+    const bomba = new Bomba(position = position)
+    game.addVisual(bomba)
+    bomba.activar()
+    bombasLanzadas += 1
+    if (bombasLanzadas == maxBombas) {
+      self.empezarRecarga()
+    }
+  }
+}
+
+method empezarRecarga() {
+  recargando = true
+  game.schedule(tiempoRecarga, { self.terminarRecarga() })
+}
+
+method terminarRecarga() {
+  bombasLanzadas = 0
+  recargando = false
 }
 }
