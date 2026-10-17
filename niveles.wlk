@@ -1,3 +1,4 @@
+import sonidos.*
 import jugador.*
 import objetos.*
 import estadoDelJuego.*
@@ -8,7 +9,8 @@ const muroDestruible = "Muro Destruible"
 class Nivel{ 
     const property cantidadFilasDeMuros = 4
     const property cantidadColumnasDeMuros = 8 
-    const property cancionDeFondo = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")
+    var property cancionDeFondo = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")
+    var property cancionActiva = false 
 
     method cargarNivel(){
         self.cargarMapa()
@@ -47,14 +49,16 @@ class Nivel{
     }
 
     method cargarMusica(){
-        cancionDeFondo.volume(0.3)
-        cancionDeFondo.shouldLoop(true)
-        game.schedule(500, {cancionDeFondo.play()} )
+        cancionDeFondo = new CancionFondo()
+        cancionDeFondo.volumenEn(0.3)
+        cancionDeFondo.sonido().shouldLoop(true)
+        game.schedule(500, {cancionDeFondo.reproducir()
+                            cancionActiva = true } )
     }
 
     method volverAEmpezar(){
         game.clear()
-        cancionDeFondo.stop()
+        cancionDeFondo.parar()
         self.cargarNivel()
     }
 

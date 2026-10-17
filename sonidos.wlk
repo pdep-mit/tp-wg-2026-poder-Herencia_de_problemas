@@ -1,8 +1,23 @@
 class Sonido {
   const property sonido
+  var property sonidoActivo = false 
 
   method reproducir(){
-        sonido.play()
+    if(not sonidoActivo){
+      sonido.play()
+      sonidoActivo = true
+      }
+  }
+
+  method parar(){
+    if(sonidoActivo){
+      sonido.stop()
+      sonidoActivo = false
+    }
+  }
+
+  method volumenEn(nivelDeVolumen) {
+    sonido.volume(nivelDeVolumen)
   }
 
   method bajarVolumen() {
@@ -14,6 +29,10 @@ class Sonido {
   }
 }
 
+
+class CancionFondo inherits Sonido
+  (sonido = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")){
+}
 
 class SonidoPerder inherits Sonido
   (sonido = game.sound("audio/perder.mp3")){
