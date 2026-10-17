@@ -46,6 +46,7 @@ class Bomba {
       const explosion = new Explosion(position = pos)
       game.addVisual(explosion)
       explosion.desaparecerLuego()
+      game.onCollideDo(explosion, {elemento => elemento.recibirExplosion()})
     })
   }
 }
