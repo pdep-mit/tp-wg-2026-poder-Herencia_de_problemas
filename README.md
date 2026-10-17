@@ -1,6 +1,6 @@
-# Wollok Game: Título de juego
+# Wollok Game: Bomberman
 
-**Grupo:** Nombre de Grupo
+**Grupo:** Herencia de Problemas
 
 **Integrantes:**
 - Benjamín Caiazzo
@@ -24,13 +24,18 @@ Recuerden que para cada checkpoint hay [expectativas mínimas](https://docs.goog
 
 ## Objetivo
 
-TODO
+En BomberMan, tu meta es superar cada nivel del laberinto llegando hasta la puerta de salida. Para lograrlo, deberás abrirte camino colocando **bombas** para destruir muros y eliminar a tus enemigos. Pero ten cuidado con tus propias explosiones porque **si una te toca, pierdes la partida**.
+
+Ten en cuenta que en algunos niveles la puerta estará bloqueada y solo se abrirá al cumplir una condición, que varía según el nivel. Por ejemplo, eliminar a todos los enemigos.
+
+Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán tus habilidades, y te ayudarán a que la travesía sea más amena.
 
 ## Controles
 
-- Flechas / WASD: Mover personaje
-- Q: Poner una bomba
-- R: Reiniciar el nivel
+- **Flechas**: Mover personaje
+- **WASD**: Mover personaje
+- **Q**: Poner una bomba
+- **R**: Reiniciar el nivel
 
 # Explicaciones
 
