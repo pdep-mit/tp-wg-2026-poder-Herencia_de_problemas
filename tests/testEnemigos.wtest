@@ -1,0 +1,21 @@
+import jugador.*
+import objetos.*
+
+describe "daño al jugador"{
+      method initialize(){
+    game.clear()
+    jugador.position(game.at(1,1))
+    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    game.addVisual(jugador)
+  }
+
+  test "cuando el jugador recibe daño muere"{
+    jugador.recibirDanio()
+    assert.notThat(jugador.estaVivo())
+  }
+  test "cuando el jugador recibe danio, pierde una vida y sigue vivo"{
+    jugador.recibirDanio()
+    assert.equals(2, jugador.vidas())
+    assert.that(jugador.estaVivo())
+  }
+}

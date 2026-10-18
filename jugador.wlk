@@ -10,6 +10,7 @@ object jugador {
   const maxBombas = 3
   const tiempoRecarga = 5000       // 5 segundos
   var bombasLanzadas = 0
+  var property vidas = 3
   var recargando = false
 
   method subir() {
@@ -45,11 +46,20 @@ object jugador {
    estaVivo = false
    juego.perderJuego()
  }
+ method recibirDanio() {
+  vidas = vidas -1
+  if(vidas == 0){
+    estaVivo = false
+    juego.perderJuego()
+
+  }
+}
 
 method reiniciar() {
   estaVivo = true
   bombasLanzadas = 0
   recargando = false
+  vidas = 3
 }
 
 method entrarEnPuerta(){
