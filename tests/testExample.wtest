@@ -56,6 +56,7 @@ describe "test de explosion" {
     game.addVisual(bomba)
 
     bomba.explotar()
+    game.flushEvents(100)
 
     assert.notThat(jugador.estaVivo())
 }
@@ -67,6 +68,7 @@ describe "test de explosion" {
     game.addVisual(bomba)
     
     bomba.explotar() 
+    game.flushEvents(100)
     
     assert.notThat(game.hasVisual(muroDestruible))
   }
@@ -78,6 +80,7 @@ describe "test de explosion" {
     game.addVisual(bomba)
     
     bomba.explotar() 
+    game.flushEvents(100)
     
     assert.that(game.hasVisual(muroIndestruible))
   }
@@ -91,6 +94,7 @@ describe "test de explosion" {
     game.addVisual(bomba)
     
     bomba.explotar() 
+    game.flushEvents(100)
     
     assert.notThat(game.hasVisual(muroDestruible))
     assert.that(game.hasVisual(muroIndestructible))

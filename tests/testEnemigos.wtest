@@ -33,6 +33,7 @@ describe "daño al jugador"{
  const bomba = new Bomba(position = game.at(1, 1))
   game.addVisual(bomba)
   bomba.explotar()
+   game.flushEvents(100)
   assert.equals(2, jugador.vidas())
   assert.that(jugador.estaVivo())
 }

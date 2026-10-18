@@ -42,7 +42,6 @@ class Bomba {
 
   method generarOndaExpansiva(){
     self.posicionesAfectadas().forEach({ pos =>
-      game.getObjectsIn(pos).forEach({ objeto => objeto.recibirExplosion() })
       const explosion = new Explosion(position = pos)
       game.addVisual(explosion)
       explosion.desaparecerLuego()
