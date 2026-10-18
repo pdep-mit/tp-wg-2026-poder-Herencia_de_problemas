@@ -8,14 +8,25 @@ describe "daño al jugador"{
     jugador.estaVivo(true) //inicializo el estado del jugador como vivo
     game.addVisual(jugador)
   }
-
-  test "cuando el jugador recibe daño muere"{
-    jugador.recibirDanio()
-    assert.notThat(jugador.estaVivo())
-  }
   test "cuando el jugador recibe danio, pierde una vida y sigue vivo"{
     jugador.recibirDanio()
     assert.equals(2, jugador.vidas())
     assert.that(jugador.estaVivo())
+  }
+
+  test "jugador recibe 3 golpes y muere"{
+    jugador.recibirDanio()
+    jugador.recibirDanio()
+    jugador.recibirDanio()
+    assert.equals(0, jugador.vidas())
+    assert.notThat(jugador.estaVivo())
+  }
+  test "si el jugador ya esta muerto, las vidas no bajan de 0" {
+    jugador.recibirDanio()
+    jugador.recibirDanio()
+    jugador.recibirDanio()
+    jugador.recibirDanio()
+    assert.equals(0, jugador.vidas())
+    assert.notThat(jugador.estaVivo())
   }
 }

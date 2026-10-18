@@ -47,11 +47,14 @@ object jugador {
    juego.perderJuego()
  }
  method recibirDanio() {
+  if(estaVivo){
   vidas = vidas -1
+
+  
   if(vidas == 0){
     estaVivo = false
     juego.perderJuego()
-
+}
   }
 }
 
