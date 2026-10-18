@@ -1,5 +1,7 @@
 import sonidos.*
 import niveles.*
+import jugador.*
+
 
 object juego{
 	var property nivelActual = nivel1 
@@ -40,4 +42,18 @@ class MenuMuerte{
 class MenuDeVictoria{
 	const property image = "imagenes/Ganaste.png"
 	method position() = game.at(3.4, 2.75)
+}
+object marcadorDeVidas {
+	method position()= game.at(0, game.height()-1)
+	method text()= "Vidas: " + jugador.vidas()
+	method textColor() = "FFFFFFFF"
+	method permitePasar() = true
+	method recibirExplosion() {} 
+}
+class Corazon{
+ const property  numero 
+ method position() = game.at(numero - 1, game.height() - 1)
+ method image() = if (jugador.vidas() >= numero) "imagenes/corazonRojo.png" else "imagenes/corazonNegro.png"
+ method permitePasar() = true
+  method recibirExplosion() {} 
 }

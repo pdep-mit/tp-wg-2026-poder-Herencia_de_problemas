@@ -1,5 +1,6 @@
 import jugador.*
 import objetos.*
+import estadoDelJuego.*
 
 describe "daño al jugador"{
       method initialize(){
@@ -36,5 +37,10 @@ describe "daño al jugador"{
    game.flushEvents(100)
   assert.equals(2, jugador.vidas())
   assert.that(jugador.estaVivo())
+}
+test "cuando el jugador pierde una vida, el corazon 3 se ve vacio" {
+  const corazon = new Corazon(numero = 3)
+  jugador.recibirDanio()
+  assert.equals("imagenes/corazonNegro.png", corazon.image())
 }
 }

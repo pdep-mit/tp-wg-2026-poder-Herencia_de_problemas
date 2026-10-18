@@ -19,11 +19,17 @@ class Nivel{
         self.cargarJugadorEn(game.at(2,2))
         self.cargarControles()
         self.cargarMusica()
+        self.cargarInterfaz()
     }
 
     method cargarMapa(){
 	    game.boardGround("imagenes/Fondo.jpg")
     }
+    method cargarInterfaz(){
+     game.addVisual(new Corazon(numero = 1))
+    game.addVisual(new Corazon(numero = 2))
+    game.addVisual(new Corazon(numero = 3))
+}
 
     method cargarElementos()
     method cargarEnemigos(){}
