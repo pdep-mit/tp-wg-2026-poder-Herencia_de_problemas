@@ -29,4 +29,11 @@ describe "daño al jugador"{
     assert.equals(0, jugador.vidas())
     assert.notThat(jugador.estaVivo())
   }
+    test "la explosion de una bomba le saca una vida al jugador" {
+ const bomba = new Bomba(position = game.at(1, 1))
+  game.addVisual(bomba)
+  bomba.explotar()
+  assert.equals(2, jugador.vidas())
+  assert.that(jugador.estaVivo())
+}
 }

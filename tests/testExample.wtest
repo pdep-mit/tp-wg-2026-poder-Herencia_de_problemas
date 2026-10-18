@@ -37,7 +37,6 @@ describe "test de movimiento y colisiones de jugador" {
     
   }
 
-
 }
 
 describe "test de explosion" {
@@ -47,13 +46,13 @@ describe "test de explosion" {
     jugador.estaVivo(true) //inicializo el estado del jugador como vivo
     game.addVisual(jugador)
   }
-  test "la explosión de una bomba afecta al jugador" {
+  test "Si al jugador le queda 1 vida la explosion lo mata" {
     const posicion = game.at(2,2)
     const bomba = new Bomba(position = posicion)
 
     jugador.position(posicion.right(1))
     jugador.estaVivo(true)
-
+    jugador.vidas(1)
     game.addVisual(bomba)
 
     bomba.explotar()
@@ -96,5 +95,4 @@ describe "test de explosion" {
     assert.notThat(game.hasVisual(muroDestruible))
     assert.that(game.hasVisual(muroIndestructible))
   }
-
 }

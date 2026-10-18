@@ -43,8 +43,7 @@ object jugador {
   method permitePasar() = true
 
  method recibirExplosion() {
-   estaVivo = false
-   juego.perderJuego()
+  self.recibirDanio()
  }
  method recibirDanio() {
   if(estaVivo){
