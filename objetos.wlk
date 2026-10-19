@@ -72,7 +72,8 @@ class Enemigo {
   var property position
   var subiendo = true
 
-  method image() = "imagenes/Enemigo.png"
+  method image() = if(subiendo) "imagenes/EnemigoSubiendo.png" else "imagenes/EnemigoBajando.png"
+
   method permitePasar() = true
 
   method nombreTick() = "enemigo" + self.identity()
