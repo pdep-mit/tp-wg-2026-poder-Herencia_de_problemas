@@ -38,6 +38,7 @@ class Nivel{
     jugador.reiniciar()
     jugador.position(posicion)
     game.addVisual(jugador)
+    game.onCollideDo(jugador, {objeto => objeto.chocarConJugador()})
 }
 
     method cargarControles(){
@@ -94,7 +95,6 @@ class Nivel{
     method crearPuertaEn(posicion){
         const puerta = new Puerta(position = posicion)
         game.addVisual(puerta)
-        game.onCollideDo(puerta, {objeto => objeto.entrarEnPuerta()})
     }
 }
 
@@ -130,5 +130,41 @@ object nivel1 inherits Nivel {
         super()
         self.agregar(muroIndestruible, [game.at(7,9),game.at(7,8),game.at(7,6),game.at(7,4)])
     }
+    method cumpleCondicionDeVictoria() = true
     
 }
+
+object nivel2 inherits Nivel {
+    const enemigos = []
+
+    override method cargarElementos() {
+        const fila1 = self.calcularFila(game.at(0, 7))
+        const fila2 = self.calcularFila(game.at(0, 3))
+
+        const muros = (fila1 + fila2 + [game.at(3, 0), game.at(3, 2), game.at(8, 5)])
+
+        self.agregar(muroDestruible, muros)
+        self.agregarMurosIndestruibles()
+        self.crearPuertaEn(game.at(12, 9))
+    }
+
+    override method cargarEnemigos() {
+        enemigos.clear()
+        const posicion = game.at(4, 4)
+        self.crearEnemigo(posicion)
+    }
+
+    method crearEnemigo(posicion){
+        const enemigo = new Enemigo( position = posicion )
+        game.addVisual(enemigo)
+        enemigo.activar()
+        enemigos.add(enemigo)
+    }
+
+    method cumpleCondicionDeVictoria() = enemigos.isEmpty()
+
+    method eliminarEnemigoDeLaLista(enemigo){
+        enemigos.remove(enemigo)
+    }
+
+ }

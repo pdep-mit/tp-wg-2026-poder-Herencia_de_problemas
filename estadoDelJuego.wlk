@@ -56,4 +56,5 @@ class Corazon{
  method image() = if (jugador.vidas() >= numero) "imagenes/corazonRojo.png" else "imagenes/corazonNegro.png"
  method permitePasar() = true
   method recibirExplosion() {} 
+  method chocarConJugador(){}
 }

@@ -1,4 +1,6 @@
 import sonidos.*
+import estadoDelJuego.*
+import jugador.*
 
 class MuroDestruible {
   const property position 
@@ -48,6 +50,8 @@ class Bomba {
       game.onCollideDo(explosion, {elemento => elemento.recibirExplosion()})
     })
   }
+
+  method chocarConJugador() { }
 }
 
 class Explosion {
@@ -58,14 +62,20 @@ class Explosion {
   method desaparecerLuego (){
     game.schedule(500, { game.removeVisual(self) } )
   } 
-  method entrarEnPuerta(){}
+  method entrarEnPuerta(puerta){}
+  method chocarConJugador(){} // No hace nada porque la colision ya esta en generarOndaExpansiva de la Bomba.
 }
+
 
 class Puerta {
   const property position 
+  method estaAbierta() = juego.nivelActual().cumpleCondicionDeVictoria()
   method image() = "imagenes/Puerta.png"
   method permitePasar() = true
   method recibirExplosion(){ }
+  method chocarConJugador(){
+    jugador.entrarEnPuerta(self)
+  }
 }
 
 class Enemigo {
@@ -96,7 +106,11 @@ class Enemigo {
     game.getObjectsIn(pos).all({ objeto => objeto.permitePasar() })
 
   method recibirExplosion() {
+    juego.nivelActual().eliminarEnemigoDeLaLista(self)
     game.removeTickEvent(self.nombreTick())
     game.removeVisual(self)
+  }
+  method chocarConJugador(){
+    jugador.recibirDanio()
   }
 }

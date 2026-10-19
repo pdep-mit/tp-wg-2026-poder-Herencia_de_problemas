@@ -64,9 +64,13 @@ method reiniciar() {
   vidas = 3
 }
 
-method entrarEnPuerta(){
-    juego.ganarJuego()
-}
+  method entrarEnPuerta(puerta){
+    if(puerta.estaAbierta()){
+      juego.ganarJuego()
+    } else {
+        game.say(self, "La puerta está cerrada")
+      }
+  }
 
 method plantarBomba() {
   if (recargando) {
@@ -91,4 +95,5 @@ method terminarRecarga() {
   bombasLanzadas = 0
   recargando = false
 }
+
 }
