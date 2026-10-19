@@ -96,6 +96,7 @@ class Nivel{
         const puerta = new Puerta(position = posicion)
         game.addVisual(puerta)
     }
+    method eliminarEnemigoDeLaLista(enemigo){}
 }
 
 object mapaPruebas inherits Nivel {
@@ -163,7 +164,7 @@ object nivel2 inherits Nivel {
 
     method cumpleCondicionDeVictoria() = enemigos.isEmpty()
 
-    method eliminarEnemigoDeLaLista(enemigo){
+    override method eliminarEnemigoDeLaLista(enemigo){
         enemigos.remove(enemigo)
     }
 
