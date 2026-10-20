@@ -27,8 +27,8 @@ class Nivel{
     }
     method cargarInterfaz(){
      game.addVisual(new Corazon(numero = 1))
-    game.addVisual(new Corazon(numero = 2))
-    game.addVisual(new Corazon(numero = 3))
+     game.addVisual(new Corazon(numero = 2))
+     game.addVisual(new Corazon(numero = 3))
 }
 
     method cargarElementos()
@@ -97,6 +97,10 @@ class Nivel{
         game.addVisual(puerta)
     }
     method eliminarEnemigoDeLaLista(enemigo){}
+
+    method alEntrarApuerta() {
+        juego.ganarJuego()
+    }
 }
 
 object mapaPruebas inherits Nivel {
@@ -133,6 +137,9 @@ object nivel1 inherits Nivel {
     }
     method cumpleCondicionDeVictoria() = true
     
+    override method alEntrarApuerta() {
+    juego.pasarANivel2()
+  }
 }
 
 object nivel2 inherits Nivel {

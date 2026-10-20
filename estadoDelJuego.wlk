@@ -10,6 +10,11 @@ object juego{
 
 	method recargarNivel() { nivelActual.volverAEmpezar() }
 
+	method pasarANivel2() {
+		game.clear()
+		self.nivelActual(nivel2)
+		self.cargarNivel()
+	}
 
 	method perderJuego() {
 		game.schedule(5, {game.clear()
@@ -55,6 +60,6 @@ class Corazon{
  method position() = game.at(numero - 1, game.height() - 1)
  method image() = if (jugador.vidas() >= numero) "imagenes/corazonRojo.png" else "imagenes/corazonNegro.png"
  method permitePasar() = true
-  method recibirExplosion() {} 
-  method chocarConJugador(){}
+ method recibirExplosion() {} 
+ method chocarConJugador(){}
 }

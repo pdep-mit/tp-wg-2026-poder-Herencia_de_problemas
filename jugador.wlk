@@ -65,8 +65,8 @@ method reiniciar() {
 }
 
   method entrarEnPuerta(puerta){
-    if(puerta.estaAbierta()){
-      juego.ganarJuego()
+    if(puerta.estaAbierta()){ 
+      juego.nivelActual().alEntrarApuerta() 
     } else {
         game.say(self, "La puerta está cerrada")
       }
