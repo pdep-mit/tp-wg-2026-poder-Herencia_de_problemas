@@ -122,14 +122,14 @@ object nivel1 inherits Nivel {
 
     const muros = (fila1 + fila2 + [game.at(3, 0), game.at(3, 2), game.at(8, 5)])
       .filter({ pos => pos.x() != columnaEnemigo })
+    
+    // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
+    game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
+    game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
 
     self.agregar(muroDestruible, muros)
     self.agregarMurosIndestruibles()
     self.crearPuertaEn(game.at(12, 9))
-
-    // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
-    game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
-    game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
   }
 
   override method cargarEnemigos() {
