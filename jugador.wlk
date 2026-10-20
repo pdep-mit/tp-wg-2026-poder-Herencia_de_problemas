@@ -5,13 +5,16 @@ import sonidos.*
 object jugador {
   var property position = game.center()
   var property estaVivo = true
-  method image() = "imagenes/Personaje.png"
+  method image() = "imagenes/Personaje.png" //if (self.tieneEscudo()) "imagenes/Personaje.png" else "imagenes/Personaje.png"
 
   const maxBombas = 3
   const tiempoRecarga = 5000       // 5 segundos
   var bombasLanzadas = 0
   var property vidas = 3
   var recargando = false
+
+  // Colección única para almacenar los power-ups obtenidos
+  const property powerUps = []
 
   method subir() {
     if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){
@@ -41,28 +44,33 @@ object jugador {
  }
 
   method permitePasar() = true
-
- method recibirExplosion() {
-  self.recibirDanio()
- }
- method recibirDanio() {
-  if(estaVivo){
-  vidas = vidas -1
-
   
-  if(vidas == 0){
-    estaVivo = false
-    juego.perderJuego()
-}
+  method recibirDanio() {
+    if(estaVivo){
+      if(self.tieneEscudo()) {
+        const escudo = powerUps.find({ p => p.esEscudo() })
+        powerUps.remove(escudo) // Se consume el escudo y la imagen vuelve a la normalidad
+        game.say(self, "¡Escudo bloqueó el daño!")
+      } else {
+        vidas = vidas - 1
+        if(vidas == 0){
+          estaVivo = false
+          juego.perderJuego()
+        }
+      }
+    }
   }
-}
 
-method reiniciar() {
-  estaVivo = true
-  bombasLanzadas = 0
-  recargando = false
-  vidas = 3
-}
+  method recibirExplosion() {
+    self.recibirDanio()
+  }
+  
+  method reiniciar() {
+    estaVivo = true
+    bombasLanzadas = 0
+    recargando = false
+    vidas = 3
+  }
 
   method entrarEnPuerta(puerta){
     if(puerta.estaAbierta()){ 
@@ -94,6 +102,22 @@ method empezarRecarga() {
 method terminarRecarga() {
   bombasLanzadas = 0
   recargando = false
+}
+
+// Gestión de power-ups mediante la colección
+method agregarPowerUp(powerUp) {
+  powerUps.add(powerUp)
+}
+
+method tieneEscudo() = powerUps.any({ p => p.esEscudo() })
+
+method tieneMultiplicador() = powerUps.any({ p => p.esMultiplicador() })
+
+
+method sumarPuntosPor(enemigo) {
+  const puntosBase = enemigo.puntos()
+  const puntosFinales = if(self.tieneMultiplicador()) puntosBase * 2 else puntosBase
+  marcadorDePuntaje.sumar(puntosFinales)
 }
 
 }

@@ -13,6 +13,7 @@ class Nivel{
     var property cancionActiva = false 
 
     method cargarNivel(){
+        marcadorDePuntaje.reiniciar()
         self.cargarMapa()
         self.cargarElementos()
         self.cargarEnemigos()
@@ -26,6 +27,7 @@ class Nivel{
 	    game.boardGround("imagenes/Fondo.jpg")
     }
     method cargarInterfaz(){
+     game.addVisual(marcadorDePuntaje)
      game.addVisual(new Corazon(numero = 1))
      game.addVisual(new Corazon(numero = 2))
      game.addVisual(new Corazon(numero = 3))
@@ -124,12 +126,20 @@ object nivel1 inherits Nivel {
     self.agregar(muroDestruible, muros)
     self.agregarMurosIndestruibles()
     self.crearPuertaEn(game.at(12, 9))
+
+    // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
+    game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
+    game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
   }
 
   override method cargarEnemigos() {
-    const enemigo = new Enemigo(position = game.at(columnaEnemigo, 4))
-    game.addVisual(enemigo)
-    enemigo.activar()
+    const enemigoV = new Enemigo(position = game.at(columnaEnemigo, 4))
+    game.addVisual(enemigoV)
+    enemigoV.activar()
+
+    const enemigoH = new EnemigoHorizontal(position = game.at(4, 1))
+    game.addVisual(enemigoH)
+    enemigoH.activar()
   }
     override method agregarMurosIndestruibles(){
         super()
@@ -158,16 +168,19 @@ object nivel2 inherits Nivel {
 
     override method cargarEnemigos() {
         enemigos.clear()
-        const posicion = game.at(4, 4)
-        self.crearEnemigo(posicion)
+        
+        const fantasma = new EnemigoFantasma(position = game.at(4, 4))
+        game.addVisual(fantasma)
+        fantasma.activar()
+        enemigos.add(fantasma)
+
+        const normal = new Enemigo(position = game.at(2, 8))
+        game.addVisual(normal)
+        normal.activar()
+        enemigos.add(normal)
     }
 
-    method crearEnemigo(posicion){
-        const enemigo = new Enemigo( position = posicion )
-        game.addVisual(enemigo)
-        enemigo.activar()
-        enemigos.add(enemigo)
-    }
+   // borre crearEnemigo
 
     method cumpleCondicionDeVictoria() = enemigos.isEmpty()
 

@@ -33,8 +33,6 @@ object juego{
 	}
 
 	method cargarControlesPantalla(){
-        // Proximamente hay que agregar que con una tecla puedas volver al menu principal y que con otra puedas avanzar al siguiente nivel
-        // Solo se deberia estar disponible avanzar de nivel si ganaste el juego, pero si lo perdiste no
         keyboard.r().onPressDo({ self.recargarNivel() })
     }
 }
@@ -55,6 +53,20 @@ object marcadorDeVidas {
 	method permitePasar() = true
 	method recibirExplosion() {} 
 }
+object marcadorDePuntaje {
+	var property puntos = 0
+	method position() = game.at(4, game.height()-1)
+	method text() = "Puntos: " + puntos
+	method textColor() = "FFFFFFFF"
+	method permitePasar() = true
+	method recibirExplosion() {} 
+	method sumar(cantidad) { puntos += cantidad }
+	method reiniciar() {
+		puntos = 0
+	}
+	// method chocarConJugador(){}
+}
+
 class Corazon{
  const property  numero 
  method position() = game.at(numero - 1, game.height() - 1)
