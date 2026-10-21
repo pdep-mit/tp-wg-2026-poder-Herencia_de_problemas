@@ -68,7 +68,7 @@ class EnemigoHorizontal inherits Enemigo {
 class EnemigoFantasma inherits Enemigo {
     override method puntos() = 800
     override method tiempoParaMoverse() = 1000
-    method image() = "imagenes/EnemigoSubiendo.png"
+    method image() = "imagenes/Fantasma.png"
 
   override method moverse() {
     const posJugador = jugador.position()

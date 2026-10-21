@@ -7,7 +7,7 @@ object jugador {
   var property estaVivo = true
   method image() = "imagenes/Personaje.png" //if (self.tieneEscudo()) "imagenes/Personaje.png" else "imagenes/Personaje.png"
 
-  const maxBombas = 3
+  method maxBombas() = 3 + self.bombasExtras()
   const tiempoRecarga = 5000       // 5 segundos
   var bombasLanzadas = 0
   var property vidas = 3
@@ -96,7 +96,7 @@ method plantarBomba() {
     game.addVisual(bomba)
     bomba.activar()
     bombasLanzadas += 1
-    if (bombasLanzadas == maxBombas) {
+    if (bombasLanzadas == self.maxBombas()) {
       self.empezarRecarga()
     }
   }
@@ -127,5 +127,7 @@ method sumarPuntosPor(enemigo) {
   const puntosFinales = if(self.tieneMultiplicador()) puntosBase * 2 else puntosBase
   marcadorDePuntaje.sumar(puntosFinales)
 }
+
+method bombasExtras() = powerUps.count({ p => p.esMasBombas() })
 
 }

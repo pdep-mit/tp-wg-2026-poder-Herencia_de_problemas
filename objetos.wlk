@@ -33,6 +33,7 @@ class PowerUp {
   }
   method esEscudo() = false
   method esMultiplicador() = false
+  method esMasBombas() = false
 }
 
 class MultiplicadorPowerUp inherits PowerUp {
@@ -48,6 +49,14 @@ class EscudoPowerUp inherits PowerUp {
   override method esEscudo() = true
   override method efectoVisual() {
     game.say(jugador, "¡Escudo obtenido!")
+  }
+}
+
+class MasBomba inherits PowerUp {
+  method image() = "imagenes/PowerUp_MasBombas.png"
+  override method esMasBombas() = true
+  override method efectoVisual() {
+    game.say(jugador, "¡Tengo más Bombas!")
   }
 }
 
