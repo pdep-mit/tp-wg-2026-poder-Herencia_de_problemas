@@ -93,9 +93,12 @@ class Explosion {
   method image() = "imagenes/Explosion.png" 
   method permitePasar() = true
   method recibirExplosion(){ }
-  method desaparecerLuego (){
-    game.schedule(500, { game.removeVisual(self) } )
-  } 
+ method desaparecerLuego() {
+  game.schedule(500, {
+    game.removeVisual(self)
+    io.removeCollitionHandler(self.identity())
+  })
+}
   method entrarEnPuerta(puerta){}
   method chocarConJugador(){} // No hace nada porque la colision ya esta en generarOndaExpansiva de la Bomba.
 }
