@@ -120,8 +120,10 @@ object mapaPruebas inherits Nivel {
 
 object nivel1 inherits Nivel {
   const columnaEnemigo = 10
+  var llaveEncontrada = false
 
   override method cargarElementos() {
+    llaveEncontrada = false
     const fila1 = self.calcularFila(game.at(0, 7))
     const fila2 = self.calcularFila(game.at(0, 3))
 
@@ -131,6 +133,7 @@ object nivel1 inherits Nivel {
     // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
     game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
     game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
+    game.addVisual(new Llave(position = game.at(8, 5)))   
 
     self.agregar(muroDestruible, muros)
     self.agregarMurosIndestruibles()
@@ -154,11 +157,15 @@ object nivel1 inherits Nivel {
         super()
         self.agregar(muroIndestruible, [game.at(7,9),game.at(7,8),game.at(7,6),game.at(7,4)])
     }
-    method cumpleCondicionDeVictoria() = true
+    method encontrarLlave() {
+      llaveEncontrada = true
+    }
+    method cumpleCondicionDeVictoria() = llaveEncontrada
     
     override method alEntrarApuerta() {
     juego.pasarANivel2()
   }
+
 }
 
 object nivel2 inherits Nivel {

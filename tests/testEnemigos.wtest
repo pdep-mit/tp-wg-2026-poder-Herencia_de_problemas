@@ -61,4 +61,14 @@ test "Si el jugador muere en el nivel 2, al apretar R vuelve al nivel 1"{
   juego.recargarNivel()
   assert.equals(nivel1, juego.nivelActual())
 }
+test "la puerta del nivel 1 esta cerrada si no se encontro la llave "{
+  assert.notThat(nivel1.cumpleCondicionDeVictoria())
 }
+test "al agarrar la llave, la puerta del nivel 1 se abre" {
+  const llave = new Llave(position = game.at(1, 1))
+  game.addVisual(llave)
+  llave.chocarConJugador()
+  assert.that(nivel1.cumpleCondicionDeVictoria())
+}
+}
+
