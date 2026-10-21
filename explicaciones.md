@@ -7,3 +7,4 @@ Instancias: Cuando hay una explosion creo una instacia nueva de esta misma por c
 # Diagramas
 
 *Incluír al menos un diagrama para comunicar su solución*
+![Diagrama de clases de nuestro juego](assets/diagrama.png)
