@@ -70,6 +70,14 @@ object jugador {
     bombasLanzadas = 0
     recargando = false
     vidas = 3
+    powerUps.clear()
+  }
+
+  method prepararParaNivel(nuevaPosicion) {
+    position = nuevaPosicion
+    estaVivo = true
+    bombasLanzadas = 0
+    recargando = false
   }
 
   method entrarEnPuerta(puerta){

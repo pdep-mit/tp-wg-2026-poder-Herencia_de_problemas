@@ -13,11 +13,10 @@ class Nivel{
     var property cancionActiva = false 
 
     method cargarNivel(){
-        marcadorDePuntaje.reiniciar()
         self.cargarMapa()
         self.cargarElementos()
         self.cargarEnemigos()
-        self.cargarJugadorEn(game.at(2,2))
+        self.cargarJugadorEn(game.at(2,8))
         self.cargarControles()
         self.cargarMusica()
         self.cargarInterfaz()
@@ -37,7 +36,7 @@ class Nivel{
     method cargarEnemigos(){}
 
     method cargarJugadorEn(posicion){
-    jugador.reiniciar()
+    jugador.prepararParaNivel(posicion)
     jugador.position(posicion)
     game.addVisual(jugador)
     game.onCollideDo(jugador, {objeto => objeto.chocarConJugador()})
@@ -137,9 +136,13 @@ object nivel1 inherits Nivel {
     game.addVisual(enemigoV)
     enemigoV.activar()
 
-    const enemigoH = new EnemigoHorizontal(position = game.at(4, 1))
-    game.addVisual(enemigoH)
-    enemigoH.activar()
+    const enemigoH1 = new EnemigoHorizontal(position = game.at(4, 2))
+    game.addVisual(enemigoH1)
+    enemigoH1.activar()
+
+    const enemigoH2 = new EnemigoHorizontal(position = game.at(6, 4))
+    game.addVisual(enemigoH2)
+    enemigoH2.activar()
   }
     override method agregarMurosIndestruibles(){
         super()
@@ -174,7 +177,7 @@ object nivel2 inherits Nivel {
         fantasma.activar()
         enemigos.add(fantasma)
 
-        const normal = new Enemigo(position = game.at(2, 8))
+        const normal = new Enemigo(position = game.at(2, 2))
         game.addVisual(normal)
         normal.activar()
         enemigos.add(normal)

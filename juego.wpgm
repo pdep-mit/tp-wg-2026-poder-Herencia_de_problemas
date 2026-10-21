@@ -10,6 +10,9 @@ program Bomberman {
 	game.height(10)
 	game.width(15)
 
+	jugador.reiniciar()
+	marcadorDePuntaje.reiniciar()
+
 	juego.nivelActual(nivel1) // Acá pueden cambiar el nivel que se juega, que puede ser el mapaPrueba o nivel1
 	juego.cargarNivel()
 
