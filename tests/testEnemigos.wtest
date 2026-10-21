@@ -1,6 +1,7 @@
 import jugador.*
 import objetos.*
 import estadoDelJuego.*
+import enemigos.*
 
 describe "daño al jugador"{
       method initialize(){

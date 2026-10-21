@@ -2,6 +2,7 @@ import sonidos.*
 import jugador.*
 import objetos.*
 import estadoDelJuego.*
+import enemigos.*
 
 const muroIndestruible = "Muro Indestruible"
 const muroDestruible = "Muro Destruible"
@@ -132,7 +133,7 @@ object nivel1 inherits Nivel {
   }
 
   override method cargarEnemigos() {
-    const enemigoV = new Enemigo(position = game.at(columnaEnemigo, 4))
+    const enemigoV = new EnemigoVertical(position = game.at(columnaEnemigo, 4))
     game.addVisual(enemigoV)
     enemigoV.activar()
 
@@ -177,7 +178,7 @@ object nivel2 inherits Nivel {
         fantasma.activar()
         enemigos.add(fantasma)
 
-        const normal = new Enemigo(position = game.at(2, 2))
+        const normal = new EnemigoVertical(position = game.at(2, 2))
         game.addVisual(normal)
         normal.activar()
         enemigos.add(normal)
