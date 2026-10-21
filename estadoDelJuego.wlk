@@ -8,10 +8,14 @@ object juego{
 
 	method cargarNivel() { nivelActual.cargarNivel() }
 
-	method recargarNivel() { nivelActual.volverAEmpezar() }
+	method recargarNivel() {
+		jugador.reiniciar()
+		nivelActual.terminar()
+		nivelActual = nivel1
+		self.cargarNivel()     }
 
 	method pasarANivel2() {
-		game.clear()
+		nivelActual.terminar()
 		self.nivelActual(nivel2)
 		self.cargarNivel()
 	}
