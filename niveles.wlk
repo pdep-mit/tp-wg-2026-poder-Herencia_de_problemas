@@ -134,6 +134,7 @@ object nivel1 inherits Nivel {
     game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
     game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
     game.addVisual(new Llave(position = game.at(8, 5)))   
+    game.addVisual(new MasBomba(position = game.at(3, 2)))  
 
     self.agregar(muroDestruible, muros)
     self.agregarMurosIndestruibles()
@@ -172,6 +173,11 @@ object nivel2 inherits Nivel {
     const enemigos = []
 
     override method cargarElementos() {
+         // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
+        game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
+        game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
+        game.addVisual(new MasBomba(position = game.at(3, 2)))  
+
         const fila1 = self.calcularFila(game.at(0, 7))
         const fila2 = self.calcularFila(game.at(0, 3))
 
