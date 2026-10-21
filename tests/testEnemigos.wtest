@@ -1,3 +1,4 @@
+import niveles.*
 import jugador.*
 import objetos.*
 import estadoDelJuego.*
@@ -42,5 +43,21 @@ test "cuando el jugador pierde una vida, el corazon 3 se ve vacio" {
   const corazon = new Corazon(numero = 3)
   jugador.recibirDanio()
   assert.equals("imagenes/corazonNegro.png", corazon.image())
+}
+test "Al reiniciar el nivel con R, el jugador vuelve a tener 3 vidas"{
+  game.clear()
+  juego.cargarNivel()
+  jugador.recibirDanio()
+  jugador.recibirDanio()
+   jugador.recibirDanio()
+   juego.recargarNivel()
+   assert.equals(3, jugador.vidas())
+}
+test "Si el jugador muere en el nivel 2, al apretar R vuelve al nivel 1"{
+  game.clear()
+  juego.nivelActual(nivel2)
+  juego.cargarNivel()
+  juego.recargarNivel()
+  assert.equals(nivel1, juego.nivelActual())
 }
 }

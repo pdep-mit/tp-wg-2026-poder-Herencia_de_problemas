@@ -65,6 +65,11 @@ class Nivel{
                             cancionActiva = true } )
     }
 
+    method terminar(){
+    game.clear()
+    cancionDeFondo.parar()
+}
+
     method volverAEmpezar(){
         game.clear()
         cancionDeFondo.parar()
