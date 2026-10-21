@@ -36,7 +36,7 @@ class PowerUp {
 }
 
 class MultiplicadorPowerUp inherits PowerUp {
-  method image() = "imagenes/corazonRojo.png"
+   method image() = "imagenes/Multiplicador.png" 
   override method esMultiplicador() = true
   override method efectoVisual() {
     game.say(jugador, "¡Multiplicador x2 obtenido!")
