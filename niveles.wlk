@@ -12,7 +12,7 @@ const muroDestruible = "Muro Destruible"
 class Nivel{ 
     const property cantidadFilasDeMuros = 4
     const property cantidadColumnasDeMuros = 8 
-    var property cancionDeFondo = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")
+    var property cancionDeFondo = new CancionFondo()
     var property cancionActiva = false 
     const property pantallaDeNivel 
 
