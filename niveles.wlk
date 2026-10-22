@@ -3,6 +3,8 @@ import jugador.*
 import objetos.*
 import estadoDelJuego.*
 import enemigos.*
+import pantalla.*
+
 
 const muroIndestruible = "Muro Indestruible"
 const muroDestruible = "Muro Destruible"
@@ -12,9 +14,20 @@ class Nivel{
     const property cantidadColumnasDeMuros = 8 
     var property cancionDeFondo = game.sound("audio/Tema de Fondo - Zelda Song of Storms.mp3")
     var property cancionActiva = false 
+    const property pantallaDeNivel 
 
     method cargarNivel(){
-        self.cargarMapa()
+        self.cargarFondo()
+        self.cargarPantallaInicio()
+        game.schedule(5000, {game.clear()
+                            self.cargarMapa()})
+    }
+
+    method cargarPantallaInicio(){
+        game.addVisual(pantallaDeNivel)
+    }
+
+    method cargarMapa(){
         self.cargarElementos()
         self.cargarEnemigos()
         self.cargarJugadorEn(game.at(2,8))
@@ -23,9 +36,10 @@ class Nivel{
         self.cargarInterfaz()
     }
 
-    method cargarMapa(){
+    method cargarFondo(){
 	    game.boardGround("imagenes/Fondo.jpg")
     }
+
     method cargarInterfaz(){
      game.addVisual(marcadorDePuntaje)
      game.addVisual(new Corazon(numero = 1))
@@ -110,7 +124,7 @@ class Nivel{
     }
 }
 
-object mapaPruebas inherits Nivel {
+object mapaPruebas inherits Nivel (pantallaDeNivel = pantallaNivel1){
   override method cargarElementos(){
 	game.addVisual(new MuroDestruible(position = game.center().right(1)))
 	game.addVisual(new MuroIndestruible(position = game.at(3,3)))
@@ -118,7 +132,7 @@ object mapaPruebas inherits Nivel {
   }
 }
 
-object nivel1 inherits Nivel {
+object nivel1 inherits Nivel (pantallaDeNivel = pantallaNivel1){
   const columnaEnemigo = 10
   var llaveEncontrada = false
 
@@ -169,7 +183,7 @@ object nivel1 inherits Nivel {
 
 }
 
-object nivel2 inherits Nivel {
+object nivel2 inherits Nivel (pantallaDeNivel = pantallaNivel2){
     const enemigos = []
 
     override method cargarElementos() {

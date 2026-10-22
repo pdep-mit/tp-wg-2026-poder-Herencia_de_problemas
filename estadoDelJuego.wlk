@@ -1,6 +1,7 @@
 import sonidos.*
 import niveles.*
 import jugador.*
+import pantalla.*
 
 
 object juego{
@@ -41,15 +42,6 @@ object juego{
     }
 }
 
-class MenuMuerte{
-	const property image = "imagenes/HasMuerto.png" 
-	method position() = game.at(3.4, 2.75)
-}
-
-class MenuDeVictoria{
-	const property image = "imagenes/Ganaste.png"
-	method position() = game.at(3.4, 2.75)
-}
 object marcadorDeVidas {
 	method position()= game.at(0, game.height()-1)
 	method text()= "Vidas: " + jugador.vidas()
@@ -68,7 +60,7 @@ object marcadorDePuntaje {
 	method reiniciar() {
 		puntos = 0
 	}
-	// method chocarConJugador(){}
+	method chocarConJugador(){}
 }
 
 class Corazon{
