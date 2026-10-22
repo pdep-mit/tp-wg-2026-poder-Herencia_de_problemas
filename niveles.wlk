@@ -17,7 +17,6 @@ class Nivel{
     const property pantallaDeNivel 
 
     method cargarNivel(){
-        self.cargarFondo()
         self.cargarPantallaInicio()
         game.schedule(5000, {game.clear()
                             self.cargarMapa()})
