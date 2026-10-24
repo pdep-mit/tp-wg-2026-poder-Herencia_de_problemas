@@ -5,7 +5,8 @@ import sonidos.*
 object jugador {
   var property position = game.center()
   var property estaVivo = true
-  method image() = "imagenes/Personaje.png" //if (self.tieneEscudo()) "imagenes/Personaje.png" else "imagenes/Personaje.png"
+  var property estaMirando = "Abajo" 
+  method image() = "imagenes/Personaje_" + estaMirando + ".png" //if (self.tieneEscudo()) "imagenes/Personaje.png" else "imagenes/Personaje.png"
 
   method maxBombas() = 3 + self.bombasExtras()
   const tiempoRecarga = 5000       // 5 segundos
@@ -20,24 +21,28 @@ object jugador {
     if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){
       position = position.up(1) // si puede ir a es true, permito subir un casillero 
     } 
+    estaMirando = "Arriba"
   }
 
   method bajar() {
     if (position.y() > 0 && self.puedeIrA(position.down(1))){
       position = position.down(1)
     }
+    estaMirando = "Abajo"
   }
 
   method irALaDerecha() {
     if (position.x() < game.width() -1 && self.puedeIrA(position.right(1))){
       position = position.right(1)
     } 
+    estaMirando = "Derecha"
   }
   
   method irALaIzquierda() {
     if (position.x() > 0 && self.puedeIrA(position.left(1))){
       position = position.left(1)
     } 
+    estaMirando = "Izquierda"
   }
  method puedeIrA(nuevaPosicion) { // consulta si el jugador puede pasar a esa celda
    return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} // retorna un booleano si el objeto puede pasar o no
