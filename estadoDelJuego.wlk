@@ -10,7 +10,6 @@ object juego{
 	method empezarJuego(){
 		nivelActual.cargarFondo()
 		game.addVisual(pantallaInicio)
-		game.addVisual(tocarEspacioPantalla)
 		keyboard.space().onPressDo({ game.clear()
 									self.cargarNivel() })	/*Empezar Nivel 1 */ 
 		
