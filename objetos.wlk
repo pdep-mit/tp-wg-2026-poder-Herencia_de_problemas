@@ -89,6 +89,7 @@ class Bomba {
     self.posicionesAfectadas().forEach({ pos =>
       const explosion = new Explosion(position = pos)
       game.addVisual(explosion)
+      animacion.empezarAnimacion(explosion)
       explosion.desaparecerLuego()
       game.onCollideDo(explosion, {elemento => elemento.recibirExplosion()})
     })
@@ -99,17 +100,23 @@ class Bomba {
 
 class Explosion {
   const property position
-  method image() = "imagenes/Explosion.png" 
+  var property frame = 1 
+  method nombreBaseAnimacion() = "imagenes/Explosion_"
+  method framesMaximos() = 6
+  method image() = animacion.nombreDeFrame(self.nombreBaseAnimacion() , frame)
   method permitePasar() = true
   method recibirExplosion(){ }
  method desaparecerLuego() {
   game.schedule(500, {
+    game.removeTickEvent(self.nombreAnimacion())
     game.removeVisual(self)
     io.removeCollitionHandler(self.identity())
   })
 }
   method entrarEnPuerta(puerta){}
   method chocarConJugador(){} // No hace nada porque la colision ya esta en generarOndaExpansiva de la Bomba.
+
+  method nombreAnimacion() = "Animacion_Explosion" + self.identity()
 }
 
 
@@ -136,3 +143,19 @@ class Llave{
 
   }
 }
+
+object animacion{
+  method nombreDeFrame(nombreBase,frame) = nombreBase + frame.toString() + ".png"
+  method empezarAnimacion(objeto){
+    game.onTick(100, objeto.nombreAnimacion() , { self.avanzar(objeto)})
+    }
+  method avanzar(objeto){
+    const frameActual = objeto.frame()
+      if(frameActual == objeto.framesMaximos()){
+        objeto.frame(1)
+      } else{
+        objeto.frame(frameActual + 1)}
+      }
+
+  }
+
