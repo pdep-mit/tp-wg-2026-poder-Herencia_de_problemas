@@ -5,8 +5,8 @@ import sonidos.*
 import niveles.*
 import estadoDelJuego.*
 
-program Bomberman {
-	game.title("Grupo: Herencia de Problemas | Bomberman")
+program BomberBot {
+	game.title("Grupo: Herencia de Problemas | BomberBot")
 	game.height(10)
 	game.width(15)
 
