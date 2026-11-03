@@ -53,8 +53,7 @@ object jugador {
   method recibirDanio() {
     if(estaVivo){
       if(self.tieneEscudo()) {
-        const escudo = powerUps.find({ p => p.esEscudo() })
-        powerUps.remove(escudo) // Se consume el escudo y la imagen vuelve a la normalidad
+        self.eliminarEscudo()
         game.say(self, "¡Escudo bloqueó el daño!")
       } else {
         vidas = vidas - 1
@@ -117,6 +116,8 @@ method terminarRecarga() {
   recargando = false
 }
 
+method bombasDisponibles() = self.maxBombas() - bombasLanzadas
+
 // Gestión de power-ups mediante la colección
 method agregarPowerUp(powerUp) {
   powerUps.add(powerUp)
@@ -134,5 +135,11 @@ method sumarPuntosPor(enemigo) {
 }
 
 method bombasExtras() = powerUps.count({ p => p.esMasBombas() })
+
+method eliminarEscudo(){
+  const escudo = powerUps.find({ p => p.esEscudo() })
+  powerUps.remove(escudo) // Se consume el escudo y la imagen vuelve a la normalidad
+  game.removeVisual(escudo) 
+}
 
 }

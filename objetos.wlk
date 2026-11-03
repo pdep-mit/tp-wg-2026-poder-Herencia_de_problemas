@@ -45,11 +45,27 @@ class MultiplicadorPowerUp inherits PowerUp {
 }
 
 class EscudoPowerUp inherits PowerUp {
-  method image() = "imagenes/escudo.gif"
+  const nombreBase = "imagenes/Burbuja_"
+  var property frame = 1
+  var property framesMaximos = 3
+  method image() = if (estaEnElPiso) "imagenes/Burbuja_Piso.png" else animacion.nombreDeFrame(nombreBase,frame) // "imagenes/Burbuja_3.png"
   override method esEscudo() = true
   override method efectoVisual() {
     game.say(jugador, "¡Escudo obtenido!")
   }
+  override method chocarConJugador() {
+    jugador.agregarPowerUp(self)
+    self.efectoVisual()
+    estaEnElPiso = false
+    juego.llevarHastaAdelante(self)
+    self.animacionEntrada()
+  }
+  override method position() = if (estaEnElPiso) position else jugador.position()
+  var estaEnElPiso = true
+  method animacionEntrada() {
+    animacion.empezarAnimacion(self)
+  }
+  method nombreAnimacion() = "Escudo_Animacion" + self.identity()
 }
 
 class MasBomba inherits PowerUp {
@@ -146,8 +162,11 @@ class Llave{
 
 object animacion{
   method nombreDeFrame(nombreBase,frame) = nombreBase + frame.toString() + ".png"
+  method tiempoPorFrame() = 100
+  method tiempoDeAnimacion(objeto) = self.tiempoPorFrame() * objeto.framesMaximos() - 1
   method empezarAnimacion(objeto){
-    game.onTick(100, objeto.nombreAnimacion() , { self.avanzar(objeto)})
+    game.onTick(self.tiempoPorFrame(), objeto.nombreAnimacion() , { self.avanzar(objeto)})
+    game.schedule(self.tiempoDeAnimacion(objeto), {game.removeTickEvent(objeto.nombreAnimacion())})
     }
   method avanzar(objeto){
     const frameActual = objeto.frame()

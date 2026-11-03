@@ -44,6 +44,7 @@ class Nivel{
      game.addVisual(new Corazon(numero = 1))
      game.addVisual(new Corazon(numero = 2))
      game.addVisual(new Corazon(numero = 3))
+     game.addVisual(marcadorDeBombas)
 }
 
     method cargarElementos()

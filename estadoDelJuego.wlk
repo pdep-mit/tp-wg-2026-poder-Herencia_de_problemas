@@ -48,6 +48,11 @@ object juego{
 	method cargarControlesPantalla(){
         keyboard.r().onPressDo({ self.recargarNivel() })
     }
+
+	method llevarHastaAdelante(objeto){ // Sirve para que la imagen de un objeto esté por delante de los demas objetos
+		game.removeVisual(objeto)
+		game.addVisual(objeto)
+	}
 }
 
 object marcadorDeVidas {
@@ -78,4 +83,13 @@ class Corazon{
  method permitePasar() = true
  method recibirExplosion() {} 
  method chocarConJugador(){}
+}
+
+object marcadorDeBombas {
+	method position()= game.at(6, game.height()-1)
+	method text()= "Bombas: " + jugador.bombasDisponibles() + " / " + jugador.maxBombas()
+	method textColor() = "FFFFFFFF"
+	method permitePasar() = true
+	method recibirExplosion() {} 
+	method chocarConJugador(){}
 }
