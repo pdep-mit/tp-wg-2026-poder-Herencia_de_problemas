@@ -37,10 +37,20 @@ class PowerUp {
 }
 
 class MultiplicadorPowerUp inherits PowerUp {
-   method image() = "imagenes/Multiplicador.png" 
+   method image() = if(estaEnElPiso) "imagenes/x2_Piso.png" else "imagenes/x2_HUD.png"
   override method esMultiplicador() = true
   override method efectoVisual() {
     game.say(jugador, "¡Multiplicador x2 obtenido!")
+  }
+  override method position() = if(estaEnElPiso) position else game.at(3,game.height()-1)
+  var estaEnElPiso = true
+  override method chocarConJugador() {
+    if(estaEnElPiso){
+    jugador.agregarPowerUp(self)
+    self.efectoVisual()
+    estaEnElPiso = false    
+    juego.llevarHastaAdelante(self)
+    }
   }
 }
 

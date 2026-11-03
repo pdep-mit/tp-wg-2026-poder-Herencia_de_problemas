@@ -66,7 +66,7 @@ object marcadorDePuntaje {
 	var property puntos = 0
 	method position() = game.at(4, game.height()-1)
 	method text() = "Puntos: " + puntos
-	method textColor() = "FFFFFFFF"
+	method textColor() = if(jugador.tieneMultiplicador()) "FFD958" else "FFFFFFFF" // FFD958 es amarillo clarito y FFFFFFFF es blanco
 	method permitePasar() = true
 	method recibirExplosion() {} 
 	method sumar(cantidad) { puntos += cantidad }
