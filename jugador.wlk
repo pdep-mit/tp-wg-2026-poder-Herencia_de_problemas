@@ -10,7 +10,7 @@ object jugador {
 
   method maxBombas() = 3 + self.bombasExtras()
   const tiempoRecarga = 5000       // 5 segundos
-  var bombasLanzadas = 0
+  var property bombasLanzadas = 0
   var property vidas = 3
   var recargando = false
 

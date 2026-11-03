@@ -84,6 +84,11 @@ class MasBomba inherits PowerUp {
   override method efectoVisual() {
     game.say(jugador, "¡Tengo más Bombas!")
   }
+  override method chocarConJugador() {
+    super()
+    const bombasTiradas = jugador.bombasLanzadas()
+    jugador.bombasLanzadas(bombasTiradas + 1)
+  }
 }
 
 
@@ -180,11 +185,8 @@ object animacion{
     }
   method avanzar(objeto){
     const frameActual = objeto.frame()
-      if(frameActual == objeto.framesMaximos()){
-        objeto.frame(1)
-      } else{
-        objeto.frame(frameActual + 1)}
-      }
-
+    if(frameActual < objeto.framesMaximos()){
+      objeto.frame(frameActual + 1)}
+  }
   }
 
