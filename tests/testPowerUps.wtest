@@ -1,0 +1,52 @@
+import objetos.*
+import jugador.*
+import enemigos.*
+import estadoDelJuego.*
+
+
+describe "Test de PowerUps"{
+
+    test "Si el jugador agarro un multiplicador, obtiene el doble de puntos del enemigo horizontal " {
+        marcadorDePuntaje.reiniciar()
+        const multiplicador = new MultiplicadorPowerUp(position = game.at(1,2) )
+        multiplicador.chocarConJugador()
+        const enemigo = new EnemigoHorizontal(position = game.at(2,2))
+        game.addVisual(enemigo)
+        enemigo.recibirExplosion()
+        
+        assert.equals(enemigo.puntos() * 2, marcadorDePuntaje.puntos())
+    }
+
+    test "Si el jugador agarro un multiplicador, obtiene el doble de puntos del enemigo fantasma " {
+        marcadorDePuntaje.reiniciar()
+        const multiplicador = new MultiplicadorPowerUp(position = game.at(1,2) )
+        multiplicador.chocarConJugador()
+        const enemigo = new EnemigoFantasma(position = game.at(2,2))
+        game.addVisual(enemigo)
+        enemigo.recibirExplosion()
+        
+        assert.equals(enemigo.puntos() * 2, marcadorDePuntaje.puntos())
+    }
+
+    test "Si el jugador agarro un escudo, este le bloquea al recibir daño"{
+        const escudo = new EscudoPowerUp(position = game.at(1,2) )
+        escudo.chocarConJugador()
+        jugador.recibirDanio()
+
+        assert.equals(3, jugador.vidas())
+    }
+    test "Si el jugador NO agarro un escudo, recibe daño normalmente"{
+        jugador.recibirDanio()
+
+        assert.equals(3 - 1, jugador.vidas())
+    }
+    test "Si el jugador agarro un escudo, este le bloquea el primer ataque pero no el segundo"{
+        const escudo = new EscudoPowerUp(position = game.at(1,2) )
+        escudo.chocarConJugador()
+        2.times({a => jugador.recibirDanio()})
+
+        assert.equals(3 - 1, jugador.vidas())
+    }
+    // TODO: Falta agregar el testing del powerUp MasBombas
+    
+}

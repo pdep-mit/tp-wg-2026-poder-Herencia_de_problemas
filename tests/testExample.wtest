@@ -1,5 +1,8 @@
 import jugador.*
 import objetos.*
+import estadoDelJuego.*
+import niveles.*
+
 
 
 describe "test de movimiento y colisiones de jugador" {
@@ -99,4 +102,32 @@ describe "test de explosion" {
     assert.notThat(game.hasVisual(muroDestruible))
     assert.that(game.hasVisual(muroIndestructible))
   }
+}
+
+
+describe "Test de llave y puerta"{
+
+test "la puerta del nivel 1 esta cerrada si no se encontro la llave "{
+      assert.notThat(nivel1.cumpleCondicionDeVictoria())
+}
+
+test "al agarrar la llave, la puerta del nivel 1 se abre" {
+      const llave = new Llave(position = game.at(1, 1))
+      game.addVisual(llave)
+      llave.chocarConJugador()
+      assert.that(nivel1.cumpleCondicionDeVictoria())
+}
+
+test "la puerta del nivel 2 esta cerrada si no se mato a todos los enemigos"{
+      nivel2.cargarEnemigos()
+      assert.notThat(nivel2.cumpleCondicionDeVictoria())
+}
+
+test "Al matar a todos los enemigos la puerta del nivel 2 se abre"{
+      juego.nivelActual(nivel2)
+      nivel2.cargarEnemigos()
+      nivel2.enemigos().forEach({e => e.recibirExplosion()})
+
+      assert.that(nivel2.cumpleCondicionDeVictoria())
+}
 }

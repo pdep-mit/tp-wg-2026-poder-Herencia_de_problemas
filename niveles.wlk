@@ -184,7 +184,7 @@ object nivel1 inherits Nivel (pantallaDeNivel = pantallaNivel1){
 }
 
 object nivel2 inherits Nivel (pantallaDeNivel = pantallaNivel2){
-    const enemigos = []
+    const property enemigos = []
 
     override method cargarElementos() {
          // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
