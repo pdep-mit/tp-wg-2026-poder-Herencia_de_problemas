@@ -18,6 +18,7 @@ object juego{
 	method cargarNivel() { nivelActual.cargarNivel() }
 
 	method recargarNivel() {
+		marcadorDePuntaje.reiniciar()
 		jugador.reiniciar()
 		nivelActual.terminar()
 		nivelActual = nivel1
