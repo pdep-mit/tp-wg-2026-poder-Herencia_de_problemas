@@ -17,12 +17,27 @@ class Enemigo {
     game.onTick(self.tiempoParaMoverse(), self.nombreTick(), { self.moverse() })
   }
 
-  method moverse() { }
+  method moverse() {
+    const destino = self.destino()
+    if(self.puedeIrA(destino)){
+      position = destino
+    } else {
+      self.noPudeIrALaPosicion()
+    }
+   }
+
+  method destino()
+  method noPudeIrALaPosicion()
 
   method puedeIrA(pos) =
+    self.estaDentroDelMapa(pos) &&
+    self.todosLosObjetosPermitenPasarA(pos)
+
+  method estaDentroDelMapa(pos) = 
     pos.y().between(0, game.height() - 1) &&
-    pos.x().between(0, game.width() - 1) &&
-    game.getObjectsIn(pos).all({ objeto => objeto.permitePasar() })
+    pos.x().between(0, game.width() - 1)
+
+  method todosLosObjetosPermitenPasarA(pos) =  game.getObjectsIn(pos).all({ objeto => objeto.permitePasar() })
 
   method recibirExplosion() {
     juego.nivelActual().eliminarEnemigoDeLaLista(self) // Esto es para el nivel2 que es necesario eliminar a todos los enemigos
@@ -39,13 +54,9 @@ class EnemigoVertical inherits Enemigo {
     var subiendo = true
     method image() = if(subiendo) "imagenes/EnemigoSubiendo.png" else "imagenes/EnemigoBajando.png"
 
-    override method moverse() {
-        const destino = if (subiendo) position.up(1) else position.down(1)
-        if (self.puedeIrA(destino)) {
-        position = destino
-        } else {
-        subiendo = !subiendo        // choca con algo y da la vuelta
-        }
+    override method destino() = if (subiendo) position.up(1) else position.down(1)
+    override method noPudeIrALaPosicion(){
+      subiendo = !subiendo
     }
 }
 
@@ -54,13 +65,9 @@ class EnemigoHorizontal inherits Enemigo {
 
   method image() = if(moviendoseALaDerecha) "imagenes/EnemigoBajando.png" else "imagenes/EnemigoSubiendo.png"
 
-  override method moverse() {
-    const destino = if (moviendoseALaDerecha) position.right(1) else position.left(1)
-    if (self.puedeIrA(destino)) {
-      position = destino
-    } else {
+  override method destino() = if (moviendoseALaDerecha) position.right(1) else position.left(1)
+  override method noPudeIrALaPosicion(){
       moviendoseALaDerecha = !moviendoseALaDerecha
-    }
   }
 
 }
@@ -70,7 +77,9 @@ class EnemigoFantasma inherits Enemigo {
     override method tiempoParaMoverse() = 1000
     method image() = "imagenes/Fantasma.png"
 
-  override method moverse() {
+  override method todosLosObjetosPermitenPasarA(pos) = true
+
+  override method destino() {
     const posJugador = jugador.position()
     const dx = posJugador.x() - position.x()
     const dy = posJugador.y() - position.y()
@@ -80,20 +89,7 @@ class EnemigoFantasma inherits Enemigo {
     } else {
       if (dy > 0) position.up(1) else position.down(1)
     }
-
-    if (self.puedeIrFantasma(destino)) {
-      position = destino
-    }
-  }
-
-  // Solución para que el fantasma traspase objetos sin modificar todas las demás clases:
-  // Verificamos únicamente que la celda no contenga Muros Indestruibles ni Bombas.
-  method puedeIrFantasma(pos) =
-    pos.x().between(0, game.width() - 1) &&
-    pos.y().between(0, game.height() - 1) // && 
-    /* 
-    game.getObjectsIn(pos).all({ objeto => 
-      not (objeto.isInstanceOf(MuroIndestruible) or objeto.isInstanceOf(Bomba)) 
-    })
-    */
+    return destino
+  } 
+  override method noPudeIrALaPosicion() { }
 }
