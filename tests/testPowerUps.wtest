@@ -47,6 +47,33 @@ describe "Test de PowerUps"{
 
         assert.equals(3 - 1, jugador.vidas())
     }
-    // TODO: Falta agregar el testing del powerUp MasBombas
+    test "Si el jugador NO agarro un PowerUp MasBombas, este puede tirar solo 3 bombas" {
+        assert.equals(3, jugador.maxBombas())
+    }
+    test "Si el jugador agarro un PowerUp MasBombas, este puede tirar 1 bomba más (4 bombas)" {
+        const powerBomba = new MasBomba(position = game.at(2, 2) )
+        powerBomba.chocarConJugador()
+
+        assert.equals(4, jugador.maxBombas())
+    }
+    
+    test "Si el jugador tiene PowerUps y reinicia el nivel, estos desaparecen del jugador" {
+        const multiplicador = new MultiplicadorPowerUp(position = game.at(2, 2))
+        const escudo = new EscudoPowerUp(position = game.at(2, 2) )
+        const masBombas = new MasBomba(position = game.at(2, 2) )
+        [multiplicador,escudo,masBombas].forEach({ p => p.chocarConJugador() })
+        juego.recargarNivel()
+
+        assert.that(jugador.powerUps().isEmpty())
+    }
+    test "Si el jugador esta en el nivel 1 y tiene powerUps, al pasar al siguiente nivel NO los pierde" {
+        const multiplicador = new MultiplicadorPowerUp(position = game.at(2, 2))
+        const escudo = new EscudoPowerUp(position = game.at(2, 2) )
+        const masBombas = new MasBomba(position = game.at(2, 2) )
+        [multiplicador,escudo,masBombas].forEach({ p => p.chocarConJugador() })
+        juego.pasarANivel2()
+
+        assert.notThat(jugador.powerUps().isEmpty())
+    }
     
 }
