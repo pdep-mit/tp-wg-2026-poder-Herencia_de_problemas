@@ -30,6 +30,7 @@ class Nivel{
         self.cargarElementos()
         self.cargarEnemigos()
         self.cargarJugadorEn(game.at(2,8))
+        self.cargarPowerUpsObtenidos()
         self.cargarControles()
         self.cargarMusica()
         self.cargarInterfaz()
@@ -78,6 +79,10 @@ class Nivel{
         cancionDeFondo.sonido().shouldLoop(true)
         game.schedule(500, {cancionDeFondo.reproducir()
                             cancionActiva = true } )
+    }
+
+    method cargarPowerUpsObtenidos(){
+        jugador.powerUps().forEach({ p => p.aniadirAlMapa()})
     }
 
     method terminar(){

@@ -34,6 +34,9 @@ class PowerUp {
   method esEscudo() = false
   method esMultiplicador() = false
   method esMasBombas() = false
+  method aniadirAlMapa() {
+    game.addVisual(self)
+  }
 }
 
 class MultiplicadorPowerUp inherits PowerUp {
@@ -64,11 +67,13 @@ class EscudoPowerUp inherits PowerUp {
     game.say(jugador, "¡Escudo obtenido!")
   }
   override method chocarConJugador() {
-    jugador.agregarPowerUp(self)
-    self.efectoVisual()
-    estaEnElPiso = false
-    juego.llevarHastaAdelante(self)
-    self.animacionEntrada()
+    if(estaEnElPiso){
+      jugador.agregarPowerUp(self)
+      self.efectoVisual()
+      estaEnElPiso = false
+      juego.llevarHastaAdelante(self)
+      self.animacionEntrada()
+      }
   }
   override method position() = if (estaEnElPiso) position else jugador.position()
   var estaEnElPiso = true
@@ -89,6 +94,7 @@ class MasBomba inherits PowerUp {
     const bombasTiradas = jugador.bombasLanzadas()
     jugador.bombasLanzadas(bombasTiradas + 1)
   }
+  override method aniadirAlMapa(){}
 }
 
 
