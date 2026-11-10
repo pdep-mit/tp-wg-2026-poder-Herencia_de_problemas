@@ -58,10 +58,9 @@ class MultiplicadorPowerUp inherits PowerUp {
 }
 
 class EscudoPowerUp inherits PowerUp {
-  const nombreBase = "imagenes/Burbuja_"
-  var property frame = 1
-  var property framesMaximos = 3
-  method image() = if (estaEnElPiso) "imagenes/Burbuja_Piso.png" else animacion.nombreDeFrame(nombreBase,frame) // "imagenes/Burbuja_3.png"
+  const property animacion = new Animacion(nombreBaseAnimacion = "imagenes/Burbuja_"  , framesMaximos = 3) 
+  
+  method image() = if (estaEnElPiso) "imagenes/Burbuja_Piso.png" else animacion.nombreDeImagen() 
   override method esEscudo() = true
   override method efectoVisual() {
     game.say(jugador, "¡Escudo obtenido!")
@@ -78,9 +77,8 @@ class EscudoPowerUp inherits PowerUp {
   override method position() = if (estaEnElPiso) position else jugador.position()
   var estaEnElPiso = true
   method animacionEntrada() {
-    animacion.empezarAnimacion(self)
+    animacion.empezarAnimacion()
   }
-  method nombreAnimacion() = "Escudo_Animacion" + self.identity()
 }
 
 class MasBomba inherits PowerUp {
@@ -126,7 +124,7 @@ class Bomba {
     self.posicionesAfectadas().forEach({ pos =>
       const explosion = new Explosion(position = pos)
       game.addVisual(explosion)
-      animacion.empezarAnimacion(explosion)
+      explosion.empezarAnimacion() 
       explosion.desaparecerLuego()
       game.onCollideDo(explosion, {elemento => elemento.recibirExplosion()})
     })
@@ -137,15 +135,15 @@ class Bomba {
 
 class Explosion {
   const property position
-  var property frame = 1 
-  method nombreBaseAnimacion() = "imagenes/Explosion_"
-  method framesMaximos() = 6
-  method image() = animacion.nombreDeFrame(self.nombreBaseAnimacion() , frame)
+  const property animacion = new Animacion(nombreBaseAnimacion = "imagenes/Explosion_", framesMaximos = 6)
+    
+  method image() = animacion.nombreDeImagen()
+  
   method permitePasar() = true
   method recibirExplosion(){ }
  method desaparecerLuego() {
   game.schedule(500, {
-    game.removeTickEvent(self.nombreAnimacion())
+    game.removeTickEvent(animacion.nombreAnimacion()) 
     game.removeVisual(self)
     io.removeCollitionHandler(self.identity())
   })
@@ -153,7 +151,7 @@ class Explosion {
   method entrarEnPuerta(puerta){}
   method chocarConJugador(){} // No hace nada porque la colision ya esta en generarOndaExpansiva de la Bomba.
 
-  method nombreAnimacion() = "Animacion_Explosion" + self.identity()
+  method empezarAnimacion() = animacion.empezarAnimacion()
 }
 
 
@@ -181,18 +179,23 @@ class Llave{
   }
 }
 
-object animacion{
-  method nombreDeFrame(nombreBase,frame) = nombreBase + frame.toString() + ".png"
+class Animacion{
+  const nombreBaseAnimacion 
+  const framesMaximos 
+  var frameActual = 1
+
+  method nombreDeImagen() = nombreBaseAnimacion + frameActual.toString() + ".png"
+  method nombreAnimacion() = "Animacion_Explosion" + self.identity() 
   method tiempoPorFrame() = 100
-  method tiempoDeAnimacion(objeto) = self.tiempoPorFrame() * objeto.framesMaximos() - 1
-  method empezarAnimacion(objeto){
-    game.onTick(self.tiempoPorFrame(), objeto.nombreAnimacion() , { self.avanzar(objeto)})
-    game.schedule(self.tiempoDeAnimacion(objeto), {game.removeTickEvent(objeto.nombreAnimacion())})
-    }
-  method avanzar(objeto){
-    const frameActual = objeto.frame()
-    if(frameActual < objeto.framesMaximos()){
-      objeto.frame(frameActual + 1)}
+  method tiempoDeAnimacion() = self.tiempoPorFrame() * framesMaximos - 1
+  method empezarAnimacion(){
+    game.onTick(self.tiempoPorFrame(), self.nombreAnimacion() , { self.avanzar()})
+    game.schedule(self.tiempoDeAnimacion(), {game.removeTickEvent(self.nombreAnimacion())})
   }
+  method avanzar(){
+    if(frameActual < framesMaximos){
+      frameActual += 1
+    }
   }
 
+}
