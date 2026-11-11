@@ -1,12 +1,13 @@
 import estadoDelJuego.*
 import objetos.*
 import sonidos.*
+import movimiento.*
 
 object jugador {
   var property position = game.center()
   var property estaVivo = true
-  var property estaMirando = "Abajo" 
-  method image() = "imagenes/Personaje_" + estaMirando + ".png" //if (self.tieneEscudo()) "imagenes/Personaje.png" else "imagenes/Personaje.png"
+  var property estaMirando = abajo
+  method image() = "imagenes/Personaje_" + estaMirando.nombre() + ".png" 
 
   method maxBombas() = 3 + self.bombasExtras()
   const tiempoRecarga = 5000       // 5 segundos
@@ -18,35 +19,26 @@ object jugador {
   const property powerUps = []
 
   method subir() {
-    if (position.y() < game.height() - 1 && self.puedeIrA(position.up(1))){
-      position = position.up(1) // si puede ir a es true, permito subir un casillero 
-    } 
-    estaMirando = "Arriba"
+    movimiento.mover(self,arriba)
+    estaMirando = arriba 
   }
-
   method bajar() {
-    if (position.y() > 0 && self.puedeIrA(position.down(1))){
-      position = position.down(1)
-    }
-    estaMirando = "Abajo"
+    movimiento.mover(self,abajo)
+    estaMirando = abajo 
   }
-
   method irALaDerecha() {
-    if (position.x() < game.width() -1 && self.puedeIrA(position.right(1))){
-      position = position.right(1)
-    } 
-    estaMirando = "Derecha"
+    movimiento.mover(self,derecha)
+    estaMirando = derecha 
   }
-  
   method irALaIzquierda() {
-    if (position.x() > 0 && self.puedeIrA(position.left(1))){
-      position = position.left(1)
-    } 
-    estaMirando = "Izquierda"
+    movimiento.mover(self,izquierda)
+    estaMirando = izquierda 
   }
+ 
  method puedeIrA(nuevaPosicion) { // consulta si el jugador puede pasar a esa celda
    return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} // retorna un booleano si el objeto puede pasar o no
  }
+  method noPudisteIrALaPosicion() {}
 
   method permitePasar() = true
   

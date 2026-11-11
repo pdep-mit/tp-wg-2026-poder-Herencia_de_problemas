@@ -1,3 +1,4 @@
+import movimiento.*
 import jugador.*
 import estadoDelJuego.*
 import objetos.*
@@ -17,25 +18,17 @@ class Enemigo {
     game.onTick(self.tiempoParaMoverse(), self.nombreTick(), { self.moverse() })
   }
 
-  method moverse() {
-    const destino = self.destino()
-    if(self.puedeIrA(destino)){
-      position = destino
-    } else {
-      self.noPudeIrALaPosicion()
-    }
-   }
+  method moverse(){
+    const direccion = self.siguienteDireccion()
+    movimiento.mover(self, direccion)
+  }
 
-  method destino()
-  method noPudeIrALaPosicion()
+  method siguienteDireccion()
+
+  method noPudisteIrALaPosicion()
 
   method puedeIrA(pos) =
-    self.estaDentroDelMapa(pos) &&
     self.todosLosObjetosPermitenPasarA(pos)
-
-  method estaDentroDelMapa(pos) = 
-    pos.y().between(0, game.height() - 1) &&
-    pos.x().between(0, game.width() - 1)
 
   method todosLosObjetosPermitenPasarA(pos) =  game.getObjectsIn(pos).all({ objeto => objeto.permitePasar() })
 
@@ -54,10 +47,10 @@ class EnemigoVertical inherits Enemigo {
     var subiendo = true
     method image() = if(subiendo) "imagenes/EnemigoSubiendo.png" else "imagenes/EnemigoBajando.png"
 
-    override method destino() = if (subiendo) position.up(1) else position.down(1)
-    override method noPudeIrALaPosicion(){
+    override method noPudisteIrALaPosicion(){
       subiendo = !subiendo
     }
+    override method siguienteDireccion() = if(subiendo) arriba else abajo
 }
 
 class EnemigoHorizontal inherits Enemigo {
@@ -65,11 +58,10 @@ class EnemigoHorizontal inherits Enemigo {
 
   method image() = if(moviendoseALaDerecha) "imagenes/EnemigoBajando.png" else "imagenes/EnemigoSubiendo.png"
 
-  override method destino() = if (moviendoseALaDerecha) position.right(1) else position.left(1)
-  override method noPudeIrALaPosicion(){
+  override method noPudisteIrALaPosicion(){
       moviendoseALaDerecha = !moviendoseALaDerecha
   }
-
+  override method siguienteDireccion() = if(moviendoseALaDerecha) derecha else izquierda
 }
 
 class EnemigoFantasma inherits Enemigo {
@@ -77,19 +69,19 @@ class EnemigoFantasma inherits Enemigo {
     override method tiempoParaMoverse() = 1000
     method image() = "imagenes/Fantasma.png"
 
-  override method todosLosObjetosPermitenPasarA(pos) = true
+    override method puedeIrA(pos) = true
 
-  override method destino() {
+  override method siguienteDireccion(){
     const posJugador = jugador.position()
     const dx = posJugador.x() - position.x()
     const dy = posJugador.y() - position.y()
 
     const destino = if (dx.abs() > dy.abs()) {
-      if (dx > 0) position.right(1) else position.left(1)
+      if (dx > 0) derecha else izquierda
     } else {
-      if (dy > 0) position.up(1) else position.down(1)
+      if (dy > 0) arriba else abajo
     }
     return destino
-  } 
-  override method noPudeIrALaPosicion() { }
+  }
+  override method noPudisteIrALaPosicion() { }
 }
