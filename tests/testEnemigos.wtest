@@ -8,7 +8,7 @@ describe "daño al jugador"{
       method initialize(){
     game.clear()
     jugador.position(game.at(1,1))
-    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    jugador.vidas(3) // Inicializamos las vidas en lugar de modificar "estaVivo"
     game.addVisual(jugador)
   }
   test "cuando el jugador recibe danio, pierde una vida y sigue vivo"{

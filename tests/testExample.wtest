@@ -10,7 +10,7 @@ describe "test de movimiento y colisiones de jugador" {
   method initialize(){
     game.clear()
     jugador.position(game.at(1,1))
-    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    jugador.vidas(3) //inicializo el estado del jugador como vivo al añadir todas sus vidas
     game.addVisual(jugador)
   }
 
@@ -46,7 +46,7 @@ describe "test de explosion" {
   method initialize(){
     game.clear()
     jugador.position(game.at(1,1))
-    jugador.estaVivo(true) //inicializo el estado del jugador como vivo
+    jugador.vidas(3) //inicializo el estado del jugador como vivo al añadir todas sus vidas
     game.addVisual(jugador)
   }
   test "Si al jugador le queda 1 vida la explosion lo mata" {
@@ -54,7 +54,6 @@ describe "test de explosion" {
     const bomba = new Bomba(position = posicion)
 
     jugador.position(posicion.right(1))
-    jugador.estaVivo(true)
     jugador.vidas(1)
     game.addVisual(bomba)
 

@@ -5,7 +5,6 @@ import movimiento.*
 
 object jugador {
   var property position = game.center()
-  var property estaVivo = true
   var property estaMirando = abajo
   method image() = "imagenes/Personaje_" + estaMirando.nombre() + ".png" 
 
@@ -14,6 +13,8 @@ object jugador {
   var property bombasLanzadas = 0
   var property vidas = 3
   var recargando = false
+
+  method estaVivo() = vidas > 0
 
   // Colección única para almacenar los power-ups obtenidos
   const property powerUps = []
@@ -43,14 +44,14 @@ object jugador {
   method permitePasar() = true
   
   method recibirDanio() {
-    if(estaVivo){
+    if(self.estaVivo()){
       if(self.tieneEscudo()) {
         self.eliminarEscudo()
         game.say(self, "¡Escudo bloqueó el daño!")
       } else {
         vidas = vidas - 1
         if(vidas == 0){
-          estaVivo = false
+          /*estaVivo = false*/
           juego.perderJuego()
         }
       }
@@ -62,7 +63,7 @@ object jugador {
   }
   
   method reiniciar() {
-    estaVivo = true
+    /*estaVivo = true*/
     bombasLanzadas = 0
     recargando = false
     vidas = 3
@@ -71,7 +72,7 @@ object jugador {
 
   method prepararParaNivel(nuevaPosicion) {
     position = nuevaPosicion
-    estaVivo = true
+    /*estaVivo = true*/
     bombasLanzadas = 0
     recargando = false
   }
