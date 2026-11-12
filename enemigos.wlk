@@ -43,25 +43,21 @@ class Enemigo {
   }
 }
 
-class EnemigoVertical inherits Enemigo {
-    var subiendo = true
-    method image() = if(subiendo) "imagenes/EnemigoSubiendo.png" else "imagenes/EnemigoBajando.png"
-
-    override method noPudisteIrALaPosicion(){
-      subiendo = !subiendo
+class EnemigoLineal inherits Enemigo{
+  var estaMirando
+  method image() = self.nombreBase() + estaMirando.nombre() + ".png"
+  method nombreBase()
+  override method noPudisteIrALaPosicion(){
+      estaMirando = estaMirando.opuesto()
     }
-    override method siguienteDireccion() = if(subiendo) arriba else abajo
+    override method siguienteDireccion() = estaMirando
+}
+class EnemigoVertical inherits EnemigoLineal(estaMirando = arriba) {
+  override method nombreBase() = "imagenes/EnemigoVertical_"
 }
 
-class EnemigoHorizontal inherits Enemigo {
-  var moviendoseALaDerecha = true
-
-  method image() = if(moviendoseALaDerecha) "imagenes/EnemigoBajando.png" else "imagenes/EnemigoSubiendo.png"
-
-  override method noPudisteIrALaPosicion(){
-      moviendoseALaDerecha = !moviendoseALaDerecha
-  }
-  override method siguienteDireccion() = if(moviendoseALaDerecha) derecha else izquierda
+class EnemigoHorizontal inherits EnemigoLineal(estaMirando = derecha) {
+  override method nombreBase() = "imagenes/EnemigoHorizontal_"
 }
 
 class EnemigoFantasma inherits Enemigo {
