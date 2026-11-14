@@ -7,7 +7,7 @@ class MuroDestruible {
   method image() = "imagenes/MuroDestruible.png"
   method permitePasar() = false
   method recibirExplosion() {
-    game.removeVisual(self) //Se rompe
+    game.removeVisual(self) 
   }
 }
 
@@ -15,7 +15,7 @@ class MuroIndestruible {
   const property position 
   method image() = "imagenes/MuroIndestruible.png"
   method permitePasar() =  false
-  method recibirExplosion() {} // no le pase nada
+  method recibirExplosion() {} 
 }
 
 // --- Power-ups ---
@@ -31,28 +31,35 @@ class PowerUp {
   method efectoVisual() {
     game.say(jugador, "¡Power-up obtenido!")
   }
-  method esEscudo() = false
-  method esMultiplicador() = false
-  method esMasBombas() = false
+  
+  // Comportamientos polimórficos por defecto (valores neutros para power-ups que no los afecten)
+  method bloquearDanio() = false
+  method modificarPuntos(puntos) = puntos
+  method bombasExtras() = 0
+
   method aniadirAlMapa() {
     game.addVisual(self)
   }
 }
 
 class MultiplicadorPowerUp inherits PowerUp {
-   method image() = if(estaEnElPiso) "imagenes/x2_Piso.png" else "imagenes/x2_HUD.png"
-  override method esMultiplicador() = true
+  method image() = if(estaEnElPiso) "imagenes/x2_Piso.png" else "imagenes/x2_HUD.png"
+  
+  // Polimorfismo: El multiplicador duplica los puntos recibidos
+  override method modificarPuntos(puntos) = puntos * 2
+
   override method efectoVisual() {
     game.say(jugador, "¡Multiplicador x2 obtenido!")
+    marcadorDePuntaje.destacarColor("FFD958")
   }
   override method position() = if(estaEnElPiso) position else game.at(3,game.height()-1)
   var estaEnElPiso = true
   override method chocarConJugador() {
     if(estaEnElPiso){
-    jugador.agregarPowerUp(self)
-    self.efectoVisual()
-    estaEnElPiso = false    
-    juego.llevarHastaAdelante(self)
+      jugador.agregarPowerUp(self)
+      self.efectoVisual()
+      estaEnElPiso = false    
+      juego.llevarHastaAdelante(self)
     }
   }
 }
@@ -61,7 +68,14 @@ class EscudoPowerUp inherits PowerUp {
   const property animacion = new Animacion(nombreBaseAnimacion = "imagenes/Burbuja_"  , framesMaximos = 3) 
   
   method image() = if (estaEnElPiso) "imagenes/Burbuja_Piso.png" else animacion.nombreDeImagen() 
-  override method esEscudo() = true
+  
+  // Polimorfismo: El escudo se encarga de bloquear el daño, removerse de la colección y de la vista, retornando true
+  override method bloquearDanio() {
+    jugador.removerPowerUp(self)
+    game.removeVisual(self)
+    return true
+  }
+
   override method efectoVisual() {
     game.say(jugador, "¡Escudo obtenido!")
   }
@@ -72,7 +86,7 @@ class EscudoPowerUp inherits PowerUp {
       estaEnElPiso = false
       juego.llevarHastaAdelante(self)
       self.animacionEntrada()
-      }
+    }
   }
   override method position() = if (estaEnElPiso) position else jugador.position()
   var estaEnElPiso = true
@@ -83,7 +97,10 @@ class EscudoPowerUp inherits PowerUp {
 
 class MasBomba inherits PowerUp {
   method image() = "imagenes/PowerUp_MasBombas.png"
-  override method esMasBombas() = true
+  
+  // Polimorfismo: Aporta 1 bomba extra al cálculo total
+  override method bombasExtras() = 1
+
   override method efectoVisual() {
     game.say(jugador, "¡Tengo más Bombas!")
   }
@@ -107,7 +124,7 @@ class Bomba {
   }
 
   method activar() {
-    game.onTick(3000, self.identity(), {self.explotar()} ) // 3 segundos para que explote
+    game.onTick(3000, self.identity(), {self.explotar()} ) 
   }
 
   method posicionesAfectadas() =
@@ -141,15 +158,15 @@ class Explosion {
   
   method permitePasar() = true
   method recibirExplosion(){ }
- method desaparecerLuego() {
-  game.schedule(500, {
-    game.removeTickEvent(animacion.nombreAnimacion()) 
-    game.removeVisual(self)
-    io.removeCollitionHandler(self.identity())
-  })
-}
+  method desaparecerLuego() {
+    game.schedule(500, {
+      game.removeTickEvent(animacion.nombreAnimacion()) 
+      game.removeVisual(self)
+      io.removeCollitionHandler(self.identity())
+    })
+  }
   method entrarEnPuerta(puerta){}
-  method chocarConJugador(){} // No hace nada porque la colision ya esta en generarOndaExpansiva de la Bomba.
+  method chocarConJugador(){} 
 
   method empezarAnimacion() = animacion.empezarAnimacion()
 }
@@ -165,17 +182,17 @@ class Puerta {
     jugador.entrarEnPuerta(self)
   }
 }
+
 class Llave{
-   const property position
+  const property position
   method image() = "imagenes/Llave.png"
   method permitePasar() = true
   method recibirExplosion() {}
 
   method chocarConJugador() {
-  juego.nivelActual().encontrarLlave()
-  game.removeVisual(self)
-   game.say(jugador, "¡Encontraste la llave!")
-
+    juego.nivelActual().encontrarLlave()
+    game.removeVisual(self)
+    game.say(jugador, "¡Encontraste la llave!")
   }
 }
 
@@ -197,5 +214,4 @@ class Animacion{
       frameActual += 1
     }
   }
-
 }

@@ -36,24 +36,24 @@ object jugador {
     estaMirando = izquierda 
   }
  
- method puedeIrA(nuevaPosicion) { // consulta si el jugador puede pasar a esa celda
-   return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} // retorna un booleano si el objeto puede pasar o no
- }
+  method puedeIrA(nuevaPosicion) { 
+    return game.getObjectsIn(nuevaPosicion).all{objeto => objeto.permitePasar()} 
+  }
   method noPudisteIrALaPosicion() {}
 
   method permitePasar() = true
   
   method recibirDanio() {
     if(self.estaVivo()){
-      if(self.tieneEscudo()) {
-        self.eliminarEscudo()
-        game.say(self, "¡Escudo bloqueó el daño!")
-      } else {
+      // Polimorfismo: Preguntamos a los power-ups si alguno puede bloquear el daño.
+      // Si ninguno lo bloquea, el jugador recibe daño de forma estándar.
+      if(not powerUps.any({ p => p.bloquearDanio() })) {
         vidas = vidas - 1
         if(vidas == 0){
-          /*estaVivo = false*/
           juego.perderJuego()
         }
+      } else {
+        game.say(self, "¡Escudo bloqueó el daño!")
       }
     }
   }
@@ -63,7 +63,6 @@ object jugador {
   }
   
   method reiniciar() {
-    /*estaVivo = true*/
     bombasLanzadas = 0
     recargando = false
     vidas = 3
@@ -72,7 +71,6 @@ object jugador {
 
   method prepararParaNivel(nuevaPosicion) {
     position = nuevaPosicion
-    /*estaVivo = true*/
     bombasLanzadas = 0
     recargando = false
   }
@@ -85,54 +83,47 @@ object jugador {
       }
   }
 
-method plantarBomba() {
-  if (recargando) {
-    game.say(self, "Recargando...")
-  } else {
-    const bomba = new Bomba(position = position)
-    game.addVisual(bomba)
-    bomba.activar()
-    bombasLanzadas += 1
-    if (bombasLanzadas == self.maxBombas()) {
-      self.empezarRecarga()
+  method plantarBomba() {
+    if (recargando) {
+      game.say(self, "Recargando...")
+    } else {
+      const bomba = new Bomba(position = position)
+      game.addVisual(bomba)
+      bomba.activar()
+      bombasLanzadas += 1
+      if (bombasLanzadas == self.maxBombas()) {
+        self.empezarRecarga()
+      }
     }
   }
-}
 
-method empezarRecarga() {
-  recargando = true
-  game.schedule(tiempoRecarga, { self.terminarRecarga() })
-}
+  method empezarRecarga() {
+    recargando = true
+    game.schedule(tiempoRecarga, { self.terminarRecarga() })
+  }
 
-method terminarRecarga() {
-  bombasLanzadas = 0
-  recargando = false
-}
+  method terminarRecarga() {
+    bombasLanzadas = 0
+    recargando = false
+  }
 
-method bombasDisponibles() = self.maxBombas() - bombasLanzadas
+  method bombasDisponibles() = self.maxBombas() - bombasLanzadas
 
-// Gestión de power-ups mediante la colección
-method agregarPowerUp(powerUp) {
-  powerUps.add(powerUp)
-}
+  // Gestión de power-ups mediante la colección
+  method agregarPowerUp(powerUp) {
+    powerUps.add(powerUp)
+  }
 
-method tieneEscudo() = powerUps.any({ p => p.esEscudo() })
+  method removerPowerUp(powerUp) {
+    powerUps.remove(powerUp)
+  }
 
-method tieneMultiplicador() = powerUps.any({ p => p.esMultiplicador() })
+  method sumarPuntosPor(enemigo) {
+    const puntosBase = enemigo.puntos()
+    // Polimorfismo: Cada power-up modifica los puntos acumulados (ej. Multiplicador los duplica, otros los dejan igual)
+    const puntosFinales = powerUps.fold(puntosBase, { acumulado, p => p.modificarPuntos(acumulado) })
+    marcadorDePuntaje.sumar(puntosFinales)
+  }
 
-
-method sumarPuntosPor(enemigo) {
-  const puntosBase = enemigo.puntos()
-  const puntosFinales = if(self.tieneMultiplicador()) puntosBase * 2 else puntosBase
-  marcadorDePuntaje.sumar(puntosFinales)
-}
-
-method bombasExtras() = powerUps.count({ p => p.esMasBombas() })
-
-method eliminarEscudo(){
-  const escudo = powerUps.find({ p => p.esEscudo() })
-  powerUps.remove(escudo) // Se consume el escudo y la imagen vuelve a la normalidad
-  game.removeVisual(escudo) 
-}
-
+  method bombasExtras() = powerUps.sum({ p => p.bombasExtras() })
 }

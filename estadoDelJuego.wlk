@@ -65,14 +65,21 @@ object marcadorDeVidas {
 }
 object marcadorDePuntaje {
 	var property puntos = 0
-	method position() = game.at(4, game.height()-1)
-	method text() = "Puntos: " + puntos
-	method textColor() = if(jugador.tieneMultiplicador()) "FFD958" else "FFFFFFFF" // FFD958 es amarillo clarito y FFFFFFFF es blanco
+	var property textColor = "FFFFFFFF" // Ahora es una variable
+	
+	method position()= game.at(4, game.height()-1)
+	method text()= "Puntos: " + puntos
 	method permitePasar() = true
 	method recibirExplosion() {} 
 	method sumar(cantidad) { puntos += cantidad }
+	
+	method destacarColor(nuevoColor) {
+		textColor = nuevoColor
+	}
+
 	method reiniciar() {
 		puntos = 0
+		textColor = "FFFFFFFF" // Vuelve al blanco al reiniciar el nivel
 	}
 	method chocarConJugador(){}
 }
