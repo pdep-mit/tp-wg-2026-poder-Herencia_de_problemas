@@ -33,7 +33,7 @@ class PowerUp {
   }
   
   // Comportamientos polimórficos por defecto (valores neutros para power-ups que no los afecten)
-  method bloquearDanio() = false
+  method bloqueaDanio() = false
   method modificarPuntos(puntos) = puntos
   method bombasExtras() = 0
 
@@ -70,11 +70,7 @@ class EscudoPowerUp inherits PowerUp {
   method image() = if (estaEnElPiso) "imagenes/Burbuja_Piso.png" else animacion.nombreDeImagen() 
   
   // Polimorfismo: El escudo se encarga de bloquear el daño, removerse de la colección y de la vista, retornando true
-  override method bloquearDanio() {
-    jugador.removerPowerUp(self)
-    game.removeVisual(self)
-    return true
-  }
+  override method bloqueaDanio() = true
 
   override method efectoVisual() {
     game.say(jugador, "¡Escudo obtenido!")

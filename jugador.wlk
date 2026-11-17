@@ -43,18 +43,28 @@ object jugador {
 
   method permitePasar() = true
   
-  method recibirDanio() {
-    if(self.estaVivo()){
-      // Polimorfismo: Preguntamos a los power-ups si alguno puede bloquear el daño.
-      // Si ninguno lo bloquea, el jugador recibe daño de forma estándar.
-      if(not powerUps.any({ p => p.bloquearDanio() })) {
-        vidas = vidas - 1
-        if(vidas == 0){
-          juego.perderJuego()
-        }
-      } else {
-        game.say(self, "¡Escudo bloqueó el daño!")
-      }
+  method recibirDanio() { 
+    if(not self.estaVivo()){
+      self.error("No puede recibir danio porque no tiene vida")
+    }
+    
+    if(powerUps.any{ p => p.bloqueaDanio() }) {
+      self.eliminarBloqueador()
+      game.say(self, "¡Escudo bloqueó el daño!")
+    } else {
+      self.quitarUnaVida()
+    } 
+  }
+
+  method eliminarBloqueador(){
+    const bloqueador = powerUps.find{p => p.bloqueaDanio()}
+    game.removeVisual(bloqueador)
+    self.removerPowerUp(bloqueador)
+  }
+  method quitarUnaVida(){
+    vidas -= 1
+    if(vidas == 0){
+      juego.perderJuego()
     }
   }
 
