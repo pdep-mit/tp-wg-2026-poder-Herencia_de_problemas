@@ -119,7 +119,7 @@ class Nivel{
             }
     } 
     method crearPuertaEn(posicion){
-        const puerta = new Puerta(position = posicion)
+        const puerta = new Puerta(position = posicion, nivel = self)
         game.addVisual(puerta)
     }
     method eliminarEnemigoDeLaLista(enemigo){}

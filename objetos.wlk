@@ -170,12 +170,17 @@ class Explosion {
 
 class Puerta {
   const property position 
-  method estaAbierta() = juego.nivelActual().cumpleCondicionDeVictoria()
+  const nivel
+  method estaAbierta() = nivel.cumpleCondicionDeVictoria()
   method image() = if (self.estaAbierta())"imagenes/Puerta.png" else "imagenes/PuertaCerrada.png"
   method permitePasar() = true
   method recibirExplosion(){ }
   method chocarConJugador(){
-    jugador.entrarEnPuerta(self)
+    if(self.estaAbierta()){ 
+      nivel.alEntrarApuerta() 
+    } else {
+        game.say(jugador, "La puerta está cerrada")
+      }
   }
 }
 
