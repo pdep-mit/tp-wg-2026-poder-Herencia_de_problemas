@@ -24,13 +24,9 @@ describe "daño al jugador"{
     assert.equals(0, jugador.vidas())
     assert.notThat(jugador.estaVivo())
   }
-  test "si el jugador ya esta muerto, las vidas no bajan de 0" {
-    jugador.recibirDanio()
-    jugador.recibirDanio()
-    jugador.recibirDanio()
-    jugador.recibirDanio()
-    assert.equals(0, jugador.vidas())
-    assert.notThat(jugador.estaVivo())
+  test "si el jugador ya esta muerto y recibe un golpe, lanza un error" {
+    3.times{a => jugador.recibirDanio()}
+    assert.throwsException({ jugador.recibirDanio()})
   }
     test "la explosion de una bomba le saca una vida al jugador" {
  const bomba = new Bomba(position = game.at(1, 1))
