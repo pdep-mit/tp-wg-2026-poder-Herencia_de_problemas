@@ -186,12 +186,13 @@ class Puerta {
 
 class Llave{
   const property position
+  const nivel
   method image() = "imagenes/Llave.png"
   method permitePasar() = true
   method recibirExplosion() {}
 
   method chocarConJugador() {
-    juego.nivelActual().encontrarLlave()
+    nivel.encontrarLlave()
     game.removeVisual(self)
     game.say(jugador, "¡Encontraste la llave!")
   }

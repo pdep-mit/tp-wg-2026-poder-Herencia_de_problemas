@@ -127,6 +127,8 @@ class Nivel{
     method alEntrarApuerta() {
         juego.ganarJuego()
     }
+
+    method encontrarLlave(){}
 }
 
 object mapaPruebas inherits Nivel (pantallaDeNivel = pantallaNivel1){
@@ -152,7 +154,7 @@ object nivel1 inherits Nivel (pantallaDeNivel = pantallaNivel1){
     // Colocamos los power-ups detrás de muros destruibles específicos en el nivel 1
     game.addVisual(new EscudoPowerUp(position = game.at(2, 3)))
     game.addVisual(new MultiplicadorPowerUp(position = game.at(4, 3)))
-    game.addVisual(new Llave(position = game.at(8, 5)))   
+    game.addVisual(new Llave(position = game.at(8, 5), nivel = self))   
     game.addVisual(new MasBomba(position = game.at(3, 2)))  
 
     self.agregar(muroDestruible, muros)
@@ -177,7 +179,7 @@ object nivel1 inherits Nivel (pantallaDeNivel = pantallaNivel1){
         super()
         self.agregar(muroIndestruible, [game.at(7,9),game.at(7,8),game.at(7,6),game.at(7,4)])
     }
-    method encontrarLlave() {
+    override method encontrarLlave() {
       llaveEncontrada = true
     }
     method cumpleCondicionDeVictoria() = llaveEncontrada

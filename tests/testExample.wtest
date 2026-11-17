@@ -111,7 +111,7 @@ test "la puerta del nivel 1 esta cerrada si no se encontro la llave "{
 }
 
 test "al agarrar la llave, la puerta del nivel 1 se abre" {
-      const llave = new Llave(position = game.at(1, 1))
+      const llave = new Llave(position = game.at(1, 1) , nivel = nivel1)
       game.addVisual(llave)
       llave.chocarConJugador()
       assert.that(nivel1.cumpleCondicionDeVictoria())
