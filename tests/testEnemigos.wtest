@@ -47,14 +47,14 @@ test "Al reiniciar el nivel con R, el jugador vuelve a tener 3 vidas"{
   jugador.recibirDanio()
   jugador.recibirDanio()
    jugador.recibirDanio()
-   juego.recargarNivel()
+   juego.reiniciarJuego()
    assert.equals(3, jugador.vidas())
 }
 test "Si el jugador muere en el nivel 2, al apretar R vuelve al nivel 1"{
   game.clear()
   juego.nivelActual(nivel2)
   juego.cargarNivel()
-  juego.recargarNivel()
+  juego.reiniciarJuego()
   assert.equals(nivel1, juego.nivelActual())
 }
 }
@@ -86,7 +86,7 @@ describe "Test de puntos de enemigos" {
 
   test "Al reiniciar el juego (Apretando la R) los puntos se deben reiniciar a 0"{
         marcadorDePuntaje.puntos(1000)
-        juego.recargarNivel()
+        juego.reiniciarJuego()
 
         assert.equals(0, marcadorDePuntaje.puntos())
   }

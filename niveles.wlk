@@ -69,8 +69,6 @@ class Nivel{
         keyboard.d().onPressDo({ jugador.irALaDerecha() })
 
         keyboard.q().onPressDo({ jugador.plantarBomba() })
-
-        keyboard.r().onPressDo({ juego.recargarNivel()})
     }
 
     method cargarMusica(){

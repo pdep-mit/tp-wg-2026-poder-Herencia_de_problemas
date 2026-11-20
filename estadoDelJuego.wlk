@@ -9,20 +9,23 @@ object juego{
 
 	method empezarJuego(){
 		nivelActual.cargarFondo()
-		game.addVisual(pantallaInicio)
-		keyboard.space().onPressDo({ game.clear()
-									self.cargarNivel() })	/*Empezar Nivel 1 */ 
-		
+		self.reiniciarEstados()
+		self.cargarPantallaInicio()
 	}
 
-	method cargarNivel() { nivelActual.cargarNivel() }
+	method cargarNivel() { nivelActual.cargarNivel() } 
 
-	method recargarNivel() {
+	method reiniciarJuego() {
+		self.reiniciarEstados()
+		self.cargarNivel()
+	}
+
+	method reiniciarEstados(){
 		marcadorDePuntaje.reiniciar()
 		jugador.reiniciar()
 		nivelActual.terminar()
 		nivelActual = nivel1
-		self.cargarNivel()     }
+	}
 
 	method pasarANivel2() {
 		nivelActual.terminar()
@@ -32,7 +35,7 @@ object juego{
 
 	method perderJuego() {
 		game.schedule(5, {game.clear()
-						 self.cargarControlesPantalla()
+						 keyboard.r().onPressDo({ self.reiniciarJuego() })
 						 game.addVisual(new MenuMuerte())
 						 (new SonidoPerder()).reproducir()
 						 }) 	
@@ -40,15 +43,18 @@ object juego{
 
 	method ganarJuego() {
 	  game.schedule(5, {game.clear() 
-	  					 self.cargarControlesPantalla()
+	  					 keyboard.space().onPressDo({ self.cargarPantallaInicio() })
 						 game.addVisual(new MenuDeVictoria())
 						 (new SonidoGanar()).reproducir()
 						 }) 
 	}
 
-	method cargarControlesPantalla(){
-        keyboard.r().onPressDo({ self.recargarNivel() })
-    }
+	method cargarPantallaInicio(){
+		self.reiniciarEstados()
+		game.addVisual(pantallaInicio)
+		keyboard.space().onPressDo({ game.clear()
+									self.cargarNivel() })	/*Empezar Nivel 1 */ 
+	}
 
 	method llevarHastaAdelante(objeto){ // Sirve para que la imagen de un objeto esté por delante de los demas objetos
 		game.removeVisual(objeto)

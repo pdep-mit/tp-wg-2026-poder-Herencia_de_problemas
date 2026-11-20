@@ -62,7 +62,7 @@ describe "Test de PowerUps"{
         const escudo = new EscudoPowerUp(position = game.at(2, 2) )
         const masBombas = new MasBomba(position = game.at(2, 2) )
         [multiplicador,escudo,masBombas].forEach({ p => p.chocarConJugador() })
-        juego.recargarNivel()
+        juego.reiniciarJuego()
 
         assert.that(jugador.powerUps().isEmpty())
     }

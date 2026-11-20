@@ -10,9 +10,6 @@ program BomberBot {
 	game.height(10)
 	game.width(15)
 
-	jugador.reiniciar()
-	marcadorDePuntaje.reiniciar()
-
 	juego.empezarJuego()
 
 	game.start()
