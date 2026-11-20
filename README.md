@@ -39,7 +39,7 @@ Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán 
 | <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> | Mover personaje |
 | <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> | Mover personaje |
 | <kbd>Q</kbd> | Poner una bomba |
-| <kbd>R</kbd> | Reiniciar el juego desde el nivel 1 |
+| <kbd>R</kbd> | Reiniciar el juego desde el nivel 1 <br> (solo cuando perdes)|
 
 ---
 
@@ -56,9 +56,9 @@ Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán 
 
 | Enemigo | Comportamiento |
 |---|---|
-| ![Patrullero vertical](assets/imagenes/EnemigoVertical_Abajo.png) | **Patrullero vertical** <br> Se mueve de arriba hacia abajo y viceversa. |
-| ![Patrullero horizontal](assets/imagenes/EnemigoHorizontal_Derecha.png) | **Patrullero horizontal** <br> Se mueve de izquierda a derecha y viceversa. |
-| ![Fantasma](assets/imagenes/Fantasma.png) | **Fantasma** <br> Te persigue siempre y **traspasa los objetos**. |
+| <div align="center"> ![Patrullero vertical](assets/imagenes/EnemigoVertical_Abajo.png) </div> | **Patrullero vertical** <br> Se mueve de arriba hacia abajo y viceversa. |
+| <div align="center"> ![Patrullero horizontal](assets/imagenes/EnemigoHorizontal_Derecha.png) </div> | **Patrullero horizontal** <br> Se mueve de izquierda a derecha y viceversa. |
+| <div align="center"> ![Fantasma](assets/imagenes/Fantasma.png) </div> | **Fantasma** <br> Te persigue siempre y **traspasa los objetos**. |
 
 ---
 
@@ -66,9 +66,9 @@ Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán 
 
 | Power-Up | Efecto |
 |---|---|
-| ![Más bombas](assets/imagenes/PowerUp_MasBombas.png) | Permite poner más bombas antes de recargar. |
-| ![Multiplicador de puntaje](assets/imagenes/x2_Piso.png) | Duplica el puntaje que obtienes. |
-| ![Escudo](assets/imagenes/Burbuja_Piso.png) | Bloquea **un solo golpe** de un enemigo. |
+| <div align="center"> ![Más bombas](assets/imagenes/PowerUp_MasBombas.png) </div> | Permite poner más bombas antes de recargar. |
+| <div align="center"> ![Multiplicador de puntaje](assets/imagenes/x2_Piso.png) </div> | Duplica el puntaje que obtienes. |
+| <div align="center"> ![Escudo](assets/imagenes/Burbuja_Piso.png) </div> | Bloquea **un solo golpe** de un enemigo. |
 
 ---
 
