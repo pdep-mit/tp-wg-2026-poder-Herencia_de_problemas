@@ -6,7 +6,7 @@
 
 Grupo **Herencia de Problemas**
 
-<img src="docs/captura.png" alt="Captura del juego" width="35%">
+<img src="docs/captura.png" alt="Captura del juego" width="45%">
 
 </div>
 
@@ -56,9 +56,9 @@ Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán 
 
 | Enemigo | Comportamiento |
 |---|---|
-| **Patrullero vertical** | Se mueve de arriba hacia abajo y viceversa. |
-| **Patrullero horizontal** | Se mueve de izquierda a derecha y viceversa. |
-| **Fantasma** 👻 | Te persigue siempre y **traspasa los objetos**. |
+| ![Patrullero vertical](assets/imagenes/EnemigoVertical_Abajo.png) | **Patrullero vertical** <br> Se mueve de arriba hacia abajo y viceversa. |
+| ![Patrullero horizontal](assets/imagenes/EnemigoHorizontal_Derecha.png) | **Patrullero horizontal** <br> Se mueve de izquierda a derecha y viceversa. |
+| ![Fantasma](assets/imagenes/Fantasma.png) | **Fantasma** <br> Te persigue siempre y **traspasa los objetos**. |
 
 ---
 
@@ -66,9 +66,9 @@ Por suerte, a lo largo de la aventura encontrarás **Power-Ups** que mejorarán 
 
 | Power-Up | Efecto |
 |---|---|
-| 💣 **Más bombas** | Permite poner más bombas antes de recargar. |
-| ✖️ **Multiplicador de puntaje** | Duplica el puntaje que obtienes. |
-| 🛡️ **Escudo** | Bloquea **un solo golpe** de un enemigo. |
+| ![Más bombas](assets/imagenes/PowerUp_MasBombas.png) | Permite poner más bombas antes de recargar. |
+| ![Multiplicador de puntaje](assets/imagenes/x2_Piso.png) | Duplica el puntaje que obtienes. |
+| ![Escudo](assets/imagenes/Burbuja_Piso.png) | Bloquea **un solo golpe** de un enemigo. |
 
 ---
 
